@@ -2,6 +2,9 @@
 
 An app for discovering new movie premieres and adding notifications for them.
 
+## Required libraries
+
+- SwiftGen
 
 ## Installation
 
@@ -12,6 +15,8 @@ Install movie-app-ios with pod
 ```
 
 Then open it with file **movie-app-ios.xcworkspace**
+
+
 ## Authors
 
 - [@Rejwel](https://github.com/Rejwel)

@@ -1,0 +1,18 @@
+xcassets:
+  - inputs: movie-app-ios/Assets/Assets.xcassets
+    outputs:
+      - templateName: swift4
+        output: movie-app-ios/Assets/Generated/Images.swift
+        params:
+          enumName: Assets
+  - inputs: movie-app-ios/Assets/Colors.xcassets
+    outputs:
+      - templateName: swift4
+        output: movie-app-ios/Assets/Generated/Colors.swift
+        params:
+          enumName: Colors
+#fonts:
+#  inputs: movie-app-ios/Assets/Fonts
+#  outputs:
+#    templateName: swift4
+#    output: movie-app-ios/Assets/Generated/Fonts.swift
