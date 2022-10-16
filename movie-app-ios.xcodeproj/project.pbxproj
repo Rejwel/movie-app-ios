@@ -13,6 +13,7 @@
 		6AE7E60028FC674D007D5F40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AE7E5FF28FC674D007D5F40 /* Assets.xcassets */; };
 		6AE7E60728FC6897007D5F40 /* LandingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE7E60628FC6897007D5F40 /* LandingScreen.swift */; };
 		6AE7E60A28FC69D1007D5F40 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AE7E60928FC69D1007D5F40 /* Colors.xcassets */; };
+		6AE7E61828FC7047007D5F40 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE7E61728FC7047007D5F40 /* Assets.swift */; };
 		6AFC595328FC59F30067D4BE /* MovieApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC595228FC59F30067D4BE /* MovieApp.swift */; };
 		6AFC595528FC59F30067D4BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC595428FC59F30067D4BE /* ContentView.swift */; };
 		6AFC595B28FC59F40067D4BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AFC595A28FC59F40067D4BE /* Preview Assets.xcassets */; };
@@ -44,6 +45,7 @@
 		6AE7E5FF28FC674D007D5F40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AE7E60628FC6897007D5F40 /* LandingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingScreen.swift; sourceTree = "<group>"; };
 		6AE7E60928FC69D1007D5F40 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
+		6AE7E61728FC7047007D5F40 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		6AFC594F28FC59F30067D4BE /* movie-app-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "movie-app-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AFC595228FC59F30067D4BE /* MovieApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieApp.swift; sourceTree = "<group>"; };
 		6AFC595428FC59F30067D4BE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -160,6 +162,7 @@
 		6AE7E60B28FC6A95007D5F40 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				6AE7E61728FC7047007D5F40 /* Assets.swift */,
 			);
 			path = Generated;
 			sourceTree = "<group>";
@@ -494,6 +497,7 @@
 			files = (
 				6AFC595528FC59F30067D4BE /* ContentView.swift in Sources */,
 				6AE7E60728FC6897007D5F40 /* LandingScreen.swift in Sources */,
+				6AE7E61828FC7047007D5F40 /* Assets.swift in Sources */,
 				6AFC595328FC59F30067D4BE /* MovieApp.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

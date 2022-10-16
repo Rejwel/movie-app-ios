@@ -10,8 +10,21 @@ import SwiftUI
 struct LandingScreen: View {
     var body: some View {
         ZStack {
-//            Color.ignoresSafeArea()
-            Text("Hello, World!")
+            Asset.Colors.bgLanding.swiftUIColor.ignoresSafeArea()
+
+            VStack {
+                Spacer()
+                Button {
+                    print("Clicked")
+                } label: {
+                    Text("Get started")
+                        .frame(maxWidth: .infinity)
+                        .padding()
+                }
+                .buttonStyle(.bordered)
+                .padding()
+            }
+            Text("Image").foregroundColor(.white)
         }
     }
 }
