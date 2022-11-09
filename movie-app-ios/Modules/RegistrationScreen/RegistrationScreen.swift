@@ -1,5 +1,5 @@
 //
-//  LoginScreen.swift
+//  RegistrationScreen.swift
 //  movie-app-ios
 //
 //  Created by Paweł on 09/11/2022.
@@ -7,7 +7,8 @@
 
 import SwiftUI
 
-struct LoginScreen: View {
+struct RegistrationScreen: View {
+    @State private var email: String = ""
     @State private var login: String = ""
     @State private var password: String = ""
 
@@ -20,16 +21,30 @@ struct LoginScreen: View {
 
                     VStack {
                         VStack {
-                            Text("Welcome back!")
+                            Text("Create new account")
                                 .font(.custom(FontFamily.SFProRounded.bold, size: 24))
                                 .foregroundColor(.white)
-                            Text("Please sign in to your account")
+                            Text("Please fill in the form to continue")
                                 .font(.custom(FontFamily.SFProRounded.bold, size: 14))
                                 .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                                 .padding(.top, 2)
                         }
                         .padding(.top, 64)
                         VStack {
+                            TextField("", text: $email)
+                                .placeholder(when: email.isEmpty) {
+                                    Text("e-mail")
+                                        .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                                        .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
+                                }
+                                .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
+                                .disableAutocorrection(true)
+                                .multilineTextAlignment(.leading)
+                                .frame(width: 327, height: 64)
+                                .background(Asset.Colors.btnGray.swiftUIColor)
+                                .cornerRadius(AppConstants.buttonCornerRadius)
+                                .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
+                                .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                             TextField("", text: $login)
                                 .placeholder(when: login.isEmpty) {
                                     Text("login")
@@ -44,6 +59,7 @@ struct LoginScreen: View {
                                 .cornerRadius(AppConstants.buttonCornerRadius)
                                 .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                                 .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                                .padding(.top, 16)
                             SecureField("password", text: $password)
                                 .placeholder(when: password.isEmpty) {
                                     Text("password")
@@ -66,7 +82,7 @@ struct LoginScreen: View {
                             Button {
                                 print("clicked")
                             } label: {
-                                Text("Sign in")
+                                Text("Sign up")
                                     .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                     .foregroundColor(.white)
                                     .frame(width: 327, height: 64)
@@ -76,10 +92,10 @@ struct LoginScreen: View {
                             .padding(.bottom, 16)
 
                             HStack {
-                                Text("Don't have an accont?")
+                                Text("Have an account?")
                                     .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                     .foregroundColor(.white)
-                                Text("Sign up")
+                                Text("Sign in")
                                     .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                     .foregroundColor(.blue)
                             }
@@ -94,8 +110,8 @@ struct LoginScreen: View {
     }
 }
 
-struct LoginScreen_Previews: PreviewProvider {
+struct RegistrationScreen_Previews: PreviewProvider {
     static var previews: some View {
-        LoginScreen()
+        RegistrationScreen()
     }
 }
