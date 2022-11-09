@@ -105,8 +105,6 @@ struct RegistrationScreen: View {
                     }
                 }
             }
-            .navigationBarTitle("")
-            .navigationBarHidden(true)
     }
 }
 

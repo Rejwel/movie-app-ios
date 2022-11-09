@@ -24,6 +24,10 @@
 		6AAACD5E291C23F600A4A0A6 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAACD5D291C23F600A4A0A6 /* View+Extensions.swift */; };
 		6AAACD60291C24DF00A4A0A6 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAACD5F291C24DF00A4A0A6 /* LoginScreen.swift */; };
 		6AAACD65291C32F500A4A0A6 /* RegistrationScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAACD64291C32F500A4A0A6 /* RegistrationScreen.swift */; };
+		6ACD0235291C35FD00DE331B /* HomeScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACD0234291C35FD00DE331B /* HomeScreen.swift */; };
+		6ACD0238291C3C4E00DE331B /* FilmCarousel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACD0237291C3C4E00DE331B /* FilmCarousel.swift */; };
+		6ACD023A291C3EB300DE331B /* HomeModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACD0239291C3EB300DE331B /* HomeModel.swift */; };
+		6ACD023D291C3FC200DE331B /* Film.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ACD023C291C3FC200DE331B /* Film.swift */; };
 		6AE7E60028FC674D007D5F40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AE7E5FF28FC674D007D5F40 /* Assets.xcassets */; };
 		6AE7E60728FC6897007D5F40 /* LandingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE7E60628FC6897007D5F40 /* LandingScreen.swift */; };
 		6AE7E60A28FC69D1007D5F40 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AE7E60928FC69D1007D5F40 /* Colors.xcassets */; };
@@ -69,6 +73,10 @@
 		6AAACD5D291C23F600A4A0A6 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
 		6AAACD5F291C24DF00A4A0A6 /* LoginScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		6AAACD64291C32F500A4A0A6 /* RegistrationScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationScreen.swift; sourceTree = "<group>"; };
+		6ACD0234291C35FD00DE331B /* HomeScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeScreen.swift; sourceTree = "<group>"; };
+		6ACD0237291C3C4E00DE331B /* FilmCarousel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FilmCarousel.swift; sourceTree = "<group>"; };
+		6ACD0239291C3EB300DE331B /* HomeModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeModel.swift; sourceTree = "<group>"; };
+		6ACD023C291C3FC200DE331B /* Film.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Film.swift; sourceTree = "<group>"; };
 		6AE7E5FF28FC674D007D5F40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AE7E60628FC6897007D5F40 /* LandingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingScreen.swift; sourceTree = "<group>"; };
 		6AE7E60928FC69D1007D5F40 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
@@ -190,6 +198,49 @@
 			path = RegistrationScreen;
 			sourceTree = "<group>";
 		};
+		6ACD0231291C35BA00DE331B /* Onboarding */ = {
+			isa = PBXGroup;
+			children = (
+				6AAACD61291C32DD00A4A0A6 /* RegistrationScreen */,
+				6AAACD59291C169800A4A0A6 /* LoginScreen */,
+				6AE7E60328FC6870007D5F40 /* LandingScreen */,
+			);
+			path = Onboarding;
+			sourceTree = "<group>";
+		};
+		6ACD0232291C35EE00DE331B /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				6ACD0233291C35F600DE331B /* HomeScreen */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
+		6ACD0233291C35F600DE331B /* HomeScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6ACD0234291C35FD00DE331B /* HomeScreen.swift */,
+				6ACD0239291C3EB300DE331B /* HomeModel.swift */,
+			);
+			path = HomeScreen;
+			sourceTree = "<group>";
+		};
+		6ACD0236291C3C2D00DE331B /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				6ACD0237291C3C4E00DE331B /* FilmCarousel.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		6ACD023B291C3FB500DE331B /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				6ACD023C291C3FC200DE331B /* Film.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		6AE7E5FE28FC674D007D5F40 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -205,9 +256,8 @@
 		6AE7E60128FC679E007D5F40 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				6AAACD61291C32DD00A4A0A6 /* RegistrationScreen */,
-				6AAACD59291C169800A4A0A6 /* LoginScreen */,
-				6AE7E60328FC6870007D5F40 /* LandingScreen */,
+				6ACD0232291C35EE00DE331B /* Dashboard */,
+				6ACD0231291C35BA00DE331B /* Onboarding */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -265,7 +315,9 @@
 				6AE7E5FE28FC674D007D5F40 /* Assets */,
 				6AFC595228FC59F30067D4BE /* MovieApp.swift */,
 				6AFC595828FC59F40067D4BE /* movie_app_ios.entitlements */,
+				6ACD023B291C3FB500DE331B /* Models */,
 				6AE7E60128FC679E007D5F40 /* Modules */,
+				6ACD0236291C3C2D00DE331B /* Components */,
 				6AAACD5C291C23E200A4A0A6 /* Extensions */,
 				6AE7E60228FC6802007D5F40 /* Preview Content */,
 			);
@@ -577,10 +629,14 @@
 			files = (
 				6AE7E60728FC6897007D5F40 /* LandingScreen.swift in Sources */,
 				6AE7E61828FC7047007D5F40 /* Assets.swift in Sources */,
+				6ACD023A291C3EB300DE331B /* HomeModel.swift in Sources */,
 				6AFC595328FC59F30067D4BE /* MovieApp.swift in Sources */,
 				6AAACD5E291C23F600A4A0A6 /* View+Extensions.swift in Sources */,
+				6ACD0235291C35FD00DE331B /* HomeScreen.swift in Sources */,
 				6AAACD60291C24DF00A4A0A6 /* LoginScreen.swift in Sources */,
+				6ACD023D291C3FC200DE331B /* Film.swift in Sources */,
 				6AAACD58291C11D100A4A0A6 /* Fonts.swift in Sources */,
+				6ACD0238291C3C4E00DE331B /* FilmCarousel.swift in Sources */,
 				6AAACD65291C32F500A4A0A6 /* RegistrationScreen.swift in Sources */,
 				6AAACD40291ADD4400A4A0A6 /* AppConstants.swift in Sources */,
 			);

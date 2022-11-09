@@ -11,6 +11,10 @@ struct LoginScreen: View {
     @State private var login: String = ""
     @State private var password: String = ""
 
+    // TODO: Change this later on...
+    @State private var loginButtonTapped = false
+    @State private var registrationLabelTapped = false
+
     var body: some View {
 
             NavigationView {
@@ -63,25 +67,32 @@ struct LoginScreen: View {
                         .padding(.top, 64)
                         Spacer()
                         VStack {
-                            Button {
-                                print("clicked")
-                            } label: {
-                                Text("Sign in")
-                                    .font(.custom(FontFamily.SFProRounded.bold, size: 18))
-                                    .foregroundColor(.white)
-                                    .frame(width: 327, height: 64)
+                            NavigationLink(destination: HomeScreen(), isActive: $loginButtonTapped) {
+                                Button {
+                                    self.loginButtonTapped = true
+                                } label: {
+                                    Text("Sign in")
+                                        .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                                        .foregroundColor(.white)
+                                        .frame(width: 327, height: 64)
+                                }
+                                .background(.blue)
+                                .cornerRadius(AppConstants.buttonCornerRadius)
+                                .padding(.bottom, 16)
                             }
-                            .background(.blue)
-                            .cornerRadius(AppConstants.buttonCornerRadius)
-                            .padding(.bottom, 16)
 
                             HStack {
                                 Text("Don't have an accont?")
                                     .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                     .foregroundColor(.white)
-                                Text("Sign up")
-                                    .font(.custom(FontFamily.SFProRounded.bold, size: 18))
-                                    .foregroundColor(.blue)
+                                NavigationLink(destination: RegistrationScreen(), isActive: $registrationLabelTapped) {
+                                    Text("Sign up")
+                                        .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                                        .foregroundColor(.blue)
+                                        .onTapGesture {
+                                            self.registrationLabelTapped = true
+                                        }
+                                }
                             }
 
                         }
