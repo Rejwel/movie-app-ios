@@ -1,0 +1,13 @@
+xcassets:
+  inputs:
+    - movie-app-ios/Assets/Assets.xcassets
+    - movie-app-ios/Assets/Colors.xcassets
+  outputs:
+    - templateName: swift5
+      output: movie-app-ios/Assets/Generated/Assets.swift
+fonts:
+  inputs: movie-app-ios/Assets/Fonts
+  outputs:
+    templateName: swift5
+    output: movie-app-ios/Assets/Generated/Fonts.swift
+
