@@ -3,14 +3,19 @@
 //  movie-app-ios
 //
 //  Created by Paweł on 16/10/2022.
-//
+// https://www.youtube.com/watch?v=l7obVQObdRM&ab_channel=Indently
 
 import SwiftUI
 
 struct LandingScreen: View {
     var body: some View {
         ZStack {
-            Asset.Colors.bgLanding.swiftUIColor.ignoresSafeArea()
+            Image(uiImage: Asset.Assets.landingImage.image)
+                .resizable()
+                .scaledToFill()
+                .edgesIgnoringSafeArea(.all)
+
+//            Asset.Colors.bgLanding.swiftUIColor.ignoresSafeArea()
 
             VStack {
                 Spacer()
@@ -18,14 +23,14 @@ struct LandingScreen: View {
                     print("Clicked")
                 } label: {
                     Text("Get started")
-                        .frame(maxWidth: .infinity)
-                        .padding()
                 }
-                .buttonStyle(.bordered)
-                .padding()
+                .foregroundColor(.white)
+                .frame(width: 327, height: 64)
+                .background(.blue)
+                .cornerRadius(AppConstants.buttonCornerRadius)
             }
-            Text("Image").foregroundColor(.white)
         }
+
     }
 }
 
