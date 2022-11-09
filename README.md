@@ -6,17 +6,16 @@ An app for discovering new movie premieres and adding notifications for them.
 
 - Cocoapods
 - SwiftGen
-- SwiftLint
 
 ## Installation
 
-Install movie-app-ios with pod
+Install movie-app-ios with **pod**
 
 ```bash
   pod install
 ```
 
-Install assets with swiftgen in project directory
+Update assets with **swiftgen**
 
 ```bash
   swiftgen
