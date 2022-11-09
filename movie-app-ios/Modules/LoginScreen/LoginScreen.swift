@@ -43,7 +43,8 @@ struct LoginScreen: View {
                                 .background(Asset.Colors.btnGray.swiftUIColor)
                                 .cornerRadius(AppConstants.buttonCornerRadius)
                                 .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
-                            TextField("password", text: $password)
+                                .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                            SecureField("password", text: $password)
                                 .placeholder(when: password.isEmpty) {
                                     Text("password")
                                         .font(.custom(FontFamily.SFProRounded.bold, size: 18))
@@ -56,6 +57,7 @@ struct LoginScreen: View {
                                 .background(Asset.Colors.btnGray.swiftUIColor)
                                 .cornerRadius(AppConstants.buttonCornerRadius)
                                 .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
+                                .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                 .padding(.top, 16)
                         }
                         .padding(.top, 64)
@@ -71,7 +73,7 @@ struct LoginScreen: View {
                             }
                             .background(.blue)
                             .cornerRadius(AppConstants.buttonCornerRadius)
-                            .padding(.bottom, 32)
+                            .padding(.bottom, 16)
 
                             HStack {
                                 Text("Don't have an accont?")
