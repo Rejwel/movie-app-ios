@@ -33,6 +33,7 @@ internal enum Asset {
     internal static let bgLanding = ColorAsset(name: "bg_landing")
     internal static let btnDark = ColorAsset(name: "btn_dark")
     internal static let btnDarkText = ColorAsset(name: "btn_dark_text")
+    internal static let btnGray = ColorAsset(name: "btn_gray")
   }
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

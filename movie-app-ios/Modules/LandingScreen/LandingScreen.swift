@@ -3,34 +3,52 @@
 //  movie-app-ios
 //
 //  Created by Paweł on 16/10/2022.
-// https://www.youtube.com/watch?v=l7obVQObdRM&ab_channel=Indently
 
 import SwiftUI
 
 struct LandingScreen: View {
+    @State private var buttonTapped = false
+
     var body: some View {
-        ZStack {
-            Image(uiImage: Asset.Assets.landingImage.image)
-                .resizable()
-                .scaledToFill()
-                .edgesIgnoringSafeArea(.all)
 
-//            Asset.Colors.bgLanding.swiftUIColor.ignoresSafeArea()
-
-            VStack {
-                Spacer()
-                Button {
-                    print("Clicked")
-                } label: {
-                    Text("Get started")
+        NavigationView {
+            ZStack {
+                VStack {
+                    Text("Welcome to movie app")
+                        .multilineTextAlignment(.center)
+                        .font(.custom(FontFamily.SFProRounded.bold, size: 38))
+                        .foregroundColor(.white)
+                        .padding()
+                        .background(Asset.Colors.btnDark.swiftUIColor)
+                        .cornerRadius(25)
+                        .padding()
+                        .padding(.top, 120)
+                    Spacer()
+                    VStack {
+                        Spacer()
+                        NavigationLink(destination: LoginScreen(), isActive: $buttonTapped) {
+                            Button {
+                                self.buttonTapped = true
+                            } label: {
+                                Text("Get started")
+                                    .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                                    .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
+                                    .frame(width: 327, height: 64)
+                            }
+                            .background(Asset.Colors.btnDark.swiftUIColor)
+                            .cornerRadius(AppConstants.buttonCornerRadius)
+                        }
+                    }
                 }
-                .foregroundColor(.white)
-                .frame(width: 327, height: 64)
-                .background(.blue)
-                .cornerRadius(AppConstants.buttonCornerRadius)
+            }
+            .background {
+                Image(uiImage: Asset.Assets.landingImage.image)
+                    .resizable()
+                    .scaledToFill()
+                    .edgesIgnoringSafeArea(.all)
+                    .overlay(Color.black.opacity(0.4))
             }
         }
-
     }
 }
 

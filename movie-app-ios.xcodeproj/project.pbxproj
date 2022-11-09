@@ -20,12 +20,14 @@
 		6AAACD54291C111F00A4A0A6 /* SF-Pro-Rounded-Ultralight.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6AAACD4B291C111F00A4A0A6 /* SF-Pro-Rounded-Ultralight.otf */; };
 		6AAACD55291C111F00A4A0A6 /* SF-Pro-Rounded-Heavy.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6AAACD4C291C111F00A4A0A6 /* SF-Pro-Rounded-Heavy.otf */; };
 		6AAACD56291C111F00A4A0A6 /* SF-Pro-Rounded-Bold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6AAACD4D291C111F00A4A0A6 /* SF-Pro-Rounded-Bold.otf */; };
+		6AAACD58291C11D100A4A0A6 /* Fonts.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAACD57291C11D100A4A0A6 /* Fonts.swift */; };
+		6AAACD5E291C23F600A4A0A6 /* View+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAACD5D291C23F600A4A0A6 /* View+Extensions.swift */; };
+		6AAACD60291C24DF00A4A0A6 /* LoginScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAACD5F291C24DF00A4A0A6 /* LoginScreen.swift */; };
 		6AE7E60028FC674D007D5F40 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AE7E5FF28FC674D007D5F40 /* Assets.xcassets */; };
 		6AE7E60728FC6897007D5F40 /* LandingScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE7E60628FC6897007D5F40 /* LandingScreen.swift */; };
 		6AE7E60A28FC69D1007D5F40 /* Colors.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AE7E60928FC69D1007D5F40 /* Colors.xcassets */; };
 		6AE7E61828FC7047007D5F40 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AE7E61728FC7047007D5F40 /* Assets.swift */; };
 		6AFC595328FC59F30067D4BE /* MovieApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC595228FC59F30067D4BE /* MovieApp.swift */; };
-		6AFC595528FC59F30067D4BE /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC595428FC59F30067D4BE /* ContentView.swift */; };
 		6AFC595B28FC59F40067D4BE /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 6AFC595A28FC59F40067D4BE /* Preview Assets.xcassets */; };
 		6AFC596528FC59F40067D4BE /* movie_app_iosTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC596428FC59F40067D4BE /* movie_app_iosTests.swift */; };
 		6AFC596F28FC59F40067D4BE /* movie_app_iosUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AFC596E28FC59F40067D4BE /* movie_app_iosUITests.swift */; };
@@ -62,13 +64,15 @@
 		6AAACD4B291C111F00A4A0A6 /* SF-Pro-Rounded-Ultralight.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Ultralight.otf"; sourceTree = "<group>"; };
 		6AAACD4C291C111F00A4A0A6 /* SF-Pro-Rounded-Heavy.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Heavy.otf"; sourceTree = "<group>"; };
 		6AAACD4D291C111F00A4A0A6 /* SF-Pro-Rounded-Bold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Bold.otf"; sourceTree = "<group>"; };
+		6AAACD57291C11D100A4A0A6 /* Fonts.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Fonts.swift; sourceTree = "<group>"; };
+		6AAACD5D291C23F600A4A0A6 /* View+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "View+Extensions.swift"; sourceTree = "<group>"; };
+		6AAACD5F291C24DF00A4A0A6 /* LoginScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LoginScreen.swift; sourceTree = "<group>"; };
 		6AE7E5FF28FC674D007D5F40 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		6AE7E60628FC6897007D5F40 /* LandingScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LandingScreen.swift; sourceTree = "<group>"; };
 		6AE7E60928FC69D1007D5F40 /* Colors.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Colors.xcassets; sourceTree = "<group>"; };
 		6AE7E61728FC7047007D5F40 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		6AFC594F28FC59F30067D4BE /* movie-app-ios.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "movie-app-ios.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		6AFC595228FC59F30067D4BE /* MovieApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MovieApp.swift; sourceTree = "<group>"; };
-		6AFC595428FC59F30067D4BE /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
 		6AFC595828FC59F40067D4BE /* movie_app_ios.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = movie_app_ios.entitlements; sourceTree = "<group>"; };
 		6AFC595A28FC59F40067D4BE /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		6AFC596028FC59F40067D4BE /* movie-app-iosTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "movie-app-iosTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,6 +164,22 @@
 			path = SFPro;
 			sourceTree = "<group>";
 		};
+		6AAACD59291C169800A4A0A6 /* LoginScreen */ = {
+			isa = PBXGroup;
+			children = (
+				6AAACD5F291C24DF00A4A0A6 /* LoginScreen.swift */,
+			);
+			path = LoginScreen;
+			sourceTree = "<group>";
+		};
+		6AAACD5C291C23E200A4A0A6 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				6AAACD5D291C23F600A4A0A6 /* View+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
 		6AE7E5FE28FC674D007D5F40 /* Assets */ = {
 			isa = PBXGroup;
 			children = (
@@ -175,7 +195,7 @@
 		6AE7E60128FC679E007D5F40 /* Modules */ = {
 			isa = PBXGroup;
 			children = (
-				6AE7E60828FC68A8007D5F40 /* ContentView */,
+				6AAACD59291C169800A4A0A6 /* LoginScreen */,
 				6AE7E60328FC6870007D5F40 /* LandingScreen */,
 			);
 			path = Modules;
@@ -197,17 +217,10 @@
 			path = LandingScreen;
 			sourceTree = "<group>";
 		};
-		6AE7E60828FC68A8007D5F40 /* ContentView */ = {
-			isa = PBXGroup;
-			children = (
-				6AFC595428FC59F30067D4BE /* ContentView.swift */,
-			);
-			path = ContentView;
-			sourceTree = "<group>";
-		};
 		6AE7E60B28FC6A95007D5F40 /* Generated */ = {
 			isa = PBXGroup;
 			children = (
+				6AAACD57291C11D100A4A0A6 /* Fonts.swift */,
 				6AE7E61728FC7047007D5F40 /* Assets.swift */,
 			);
 			path = Generated;
@@ -240,6 +253,7 @@
 			children = (
 				6AFC595828FC59F40067D4BE /* movie_app_ios.entitlements */,
 				6AE7E5FE28FC674D007D5F40 /* Assets */,
+				6AAACD5C291C23E200A4A0A6 /* Extensions */,
 				6AE7E60228FC6802007D5F40 /* Preview Content */,
 				6AE7E60128FC679E007D5F40 /* Modules */,
 				6AFC595228FC59F30067D4BE /* MovieApp.swift */,
@@ -550,10 +564,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				6AFC595528FC59F30067D4BE /* ContentView.swift in Sources */,
 				6AE7E60728FC6897007D5F40 /* LandingScreen.swift in Sources */,
 				6AE7E61828FC7047007D5F40 /* Assets.swift in Sources */,
 				6AFC595328FC59F30067D4BE /* MovieApp.swift in Sources */,
+				6AAACD5E291C23F600A4A0A6 /* View+Extensions.swift in Sources */,
+				6AAACD60291C24DF00A4A0A6 /* LoginScreen.swift in Sources */,
+				6AAACD58291C11D100A4A0A6 /* Fonts.swift in Sources */,
 				6AAACD40291ADD4400A4A0A6 /* AppConstants.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
