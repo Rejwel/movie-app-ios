@@ -46,7 +46,7 @@ struct FilmCarousel<Content: View, T: Identifiable>: View {
             }
             .padding(.horizontal, spacing)
             .offset(x: (CGFloat(currentIndex) * -width) + adjustmentWidth + offset)
-            .gesture(
+            .highPriorityGesture(
                 DragGesture()
                     .updating($offset, body: { value, out, _ in
                         out = value.translation.width

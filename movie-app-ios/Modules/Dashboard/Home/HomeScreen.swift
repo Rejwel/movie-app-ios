@@ -86,68 +86,76 @@ struct GenrePicker: View {
 struct FilmView: View {
     @State var currentIndex: Int = 0
     @State var films: [Film] = []
+    @State var filmTapped = false
 
     var body: some View {
-        ZStack {
-            VStack(spacing: 15) {
-                FilmCarousel(list: films, index: $currentIndex) { film in
+            ZStack {
+                VStack(spacing: 15) {
+                    FilmCarousel(list: films, index: $currentIndex) { film in
 
-                    GeometryReader { proxy in
+                        GeometryReader { proxy in
 
-                        let size = proxy.size
-                        let filmPadding: CGFloat = film.id == films[currentIndex].id ? 10 : 40
+                            let size = proxy.size
+                            let filmPadding: CGFloat = film.id == films[currentIndex].id ? 10 : 40
 
-                        Image(film.filmImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fill)
-                            .frame(width: size.width)
-                            .opacity(film.id == films[currentIndex].id ? 1 : 0.3)
-                            .cornerRadius(AppConstants.buttonCornerRadius)
-                            .padding(.vertical, filmPadding)
-                            .animation(.easeInOut, value: filmPadding)
+                            NavigationLink(destination: FilmDetails(), isActive: $filmTapped) {
+                                Image(film.filmImage)
+                                    .resizable()
+                                    .aspectRatio(contentMode: .fill)
+                                    .frame(width: size.width)
+                                    .opacity(film.id == films[currentIndex].id ? 1 : 0.3)
+                                    .cornerRadius(AppConstants.buttonCornerRadius)
+                                    .padding(.vertical, filmPadding)
+                                    .animation(.easeInOut, value: filmPadding)
+                                    .onTapGesture {
+                                        self.filmTapped = true
+                                    }
+                            }
+                        }
+                    }
+                    .padding(.top, 10)
+                    .padding(.bottom, 90)
+                    Spacer()
+                }
+                .frame(maxHeight: .infinity, alignment: .top)
+                .onAppear {
+                    for index in 1...5 {
+                        films.append(Film(filmImage: "template_image"))
                     }
                 }
-                .padding(.bottom, 120)
-            }
-            .frame(maxHeight: .infinity, alignment: .top)
-            .onAppear {
-                for index in 1...5 {
-                    films.append(Film(filmImage: "template_image"))
-                }
-            }
-            VStack {
-                Text("Black Panther: Wakanda Forvere")
-                    .font(.custom(FontFamily.SFProRounded.regular, size: 18))
-                    .foregroundColor(.white)
-                HStack {
-                    Text("Date")
+                VStack {
+                    Text("Black Panther: Wakanda Forever")
                         .font(.custom(FontFamily.SFProRounded.regular, size: 18))
                         .foregroundColor(.white)
-                    Button {
-                        print("clicked")
-                    } label: {
-                        Text("Action")
+                    HStack {
+                        Text("Date")
+                            .font(.custom(FontFamily.SFProRounded.regular, size: 18))
                             .foregroundColor(.white)
-                    }
-                    .disabled(true)
-                    .buttonStyle(.borderedProminent)
-                    .cornerRadius(AppConstants.buttonCornerRadius)
+                        Button {
+                            print("clicked")
+                        } label: {
+                            Text("Action")
+                                .foregroundColor(.white)
+                        }
+                        .disabled(true)
+                        .buttonStyle(.borderedProminent)
+                        .cornerRadius(AppConstants.buttonCornerRadius)
 
-                    Button {
-                        print("clicked")
-                    } label: {
-                        Text("Sci-Fi")
-                            .foregroundColor(.white)
+                        Button {
+                            print("clicked")
+                        } label: {
+                            Text("Sci-Fi")
+                                .foregroundColor(.white)
+                        }
+                        .disabled(true)
+                        .buttonStyle(.borderedProminent)
+                        .cornerRadius(AppConstants.buttonCornerRadius)
                     }
-                    .disabled(true)
-                    .buttonStyle(.borderedProminent)
-                    .cornerRadius(AppConstants.buttonCornerRadius)
                 }
+                .frame(maxHeight: .infinity, alignment: .bottom)
+                .padding(.bottom, 20)
             }
-            .frame(maxHeight: .infinity, alignment: .bottom)
-            .padding(.bottom, 40)
         }
-    }
 }
 
 struct Home_Previews: PreviewProvider {

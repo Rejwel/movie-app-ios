@@ -67,7 +67,7 @@ struct LoginScreen: View {
                         .padding(.top, 64)
                         Spacer()
                         VStack {
-                            NavigationLink(destination: HomeScreen(), isActive: $loginButtonTapped) {
+                            NavigationLink(destination: Navigator(), isActive: $loginButtonTapped) {
                                 Button {
                                     self.loginButtonTapped = true
                                 } label: {
