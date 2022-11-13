@@ -14,7 +14,7 @@ struct LoginScreen: View {
 
     var body: some View {
 
-            NavigationView {
+            NavigationStack {
                 ZStack {
 
                     Asset.Colors.btnDark.swiftUIColor

@@ -11,7 +11,7 @@ struct HomeScreen: View {
     @State private var searchText = ""
 
     var body: some View {
-        NavigationView {
+        NavigationStack {
             ZStack {
                 Asset.Colors.btnDark.swiftUIColor
                     .ignoresSafeArea()

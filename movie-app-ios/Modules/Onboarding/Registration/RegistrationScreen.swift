@@ -14,7 +14,7 @@ struct RegistrationScreen: View {
 
     var body: some View {
 
-            NavigationView {
+            NavigationStack {
                 ZStack {
                     Asset.Colors.btnDark.swiftUIColor
                         .ignoresSafeArea()

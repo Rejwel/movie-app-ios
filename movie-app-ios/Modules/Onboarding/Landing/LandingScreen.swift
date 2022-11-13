@@ -11,7 +11,7 @@ struct LandingScreen: View {
 
     var body: some View {
 
-        NavigationView {
+        NavigationStack {
             ZStack {
                 VStack {
                     Text("Welcome to movie app")

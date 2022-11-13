@@ -68,6 +68,7 @@ struct FilmDetails: View {
                 .padding(.bottom, 30)
             }
         }
+        .toolbar(.hidden, for: .tabBar)
         .background {
             Asset.Colors.btnDark.swiftUIColor
                 .ignoresSafeArea()
