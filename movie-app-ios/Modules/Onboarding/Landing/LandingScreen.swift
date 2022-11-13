@@ -48,10 +48,6 @@ struct LandingScreen: View {
                     .edgesIgnoringSafeArea(.all)
                     .overlay(Color.black.opacity(0.4))
             }
-            .onAppear {
-                APIService.register(registerParameters: RegisterParameters(username: "test", emailAddress: "test", password: "test")) { _ in
-                }
-            }
         }
     }
 }

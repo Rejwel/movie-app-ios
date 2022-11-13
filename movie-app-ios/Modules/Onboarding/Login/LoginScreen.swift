@@ -8,21 +8,27 @@
 import SwiftUI
 
 struct LoginScreen: View {
-    @State private var login: String = ""
-    @State private var password: String = ""
+    @ObservedObject var viewModel = LoginViewModel()
 
     // TODO: Change this later on...
-    @State private var loginButtonTapped = false
-    @State private var registrationLabelTapped = false
 
     var body: some View {
 
             NavigationView {
                 ZStack {
+
                     Asset.Colors.btnDark.swiftUIColor
                         .ignoresSafeArea()
 
+                    if viewModel.isLoading {
+                        ProgressView()
+                            .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                            .scaleEffect(3)
+                            .zIndex(1)
+                    }
+
                     VStack {
+
                         VStack {
                             Text("Welcome back!")
                                 .font(.custom(FontFamily.SFProRounded.bold, size: 24))
@@ -33,43 +39,46 @@ struct LoginScreen: View {
                                 .padding(.top, 2)
                         }
                         .padding(.top, 64)
-                        VStack {
-                            TextField("", text: $login)
-                                .placeholder(when: login.isEmpty) {
+                        VStack(alignment: .leading) {
+                            TextField("", text: $viewModel.username)
+                                .placeholder(when: $viewModel.username.wrappedValue.isEmpty) {
                                     Text("login")
                                         .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                         .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                                 }
                                 .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
                                 .disableAutocorrection(true)
-                                .multilineTextAlignment(.leading)
                                 .frame(width: 327, height: 64)
                                 .background(Asset.Colors.btnGray.swiftUIColor)
                                 .cornerRadius(AppConstants.buttonCornerRadius)
                                 .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                                 .font(.custom(FontFamily.SFProRounded.bold, size: 18))
-                            SecureField("password", text: $password)
-                                .placeholder(when: password.isEmpty) {
+                            SecureField("password", text: $viewModel.password)
+                                .placeholder(when: $viewModel.password.wrappedValue.isEmpty) {
                                     Text("password")
                                         .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                         .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                                 }
                                 .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
                                 .disableAutocorrection(true)
-                                .multilineTextAlignment(.leading)
                                 .frame(width: 327, height: 64)
                                 .background(Asset.Colors.btnGray.swiftUIColor)
                                 .cornerRadius(AppConstants.buttonCornerRadius)
                                 .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                                 .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                 .padding(.top, 16)
+                            Text($viewModel.errorMessage.wrappedValue)
+                                .foregroundColor(.red)
+                                .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                                .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
+                                .padding(.top, 16)
                         }
                         .padding(.top, 64)
                         Spacer()
                         VStack {
-                            NavigationLink(destination: Navigator(), isActive: $loginButtonTapped) {
+                            NavigationLink(destination: Navigator(), isActive: $viewModel.loginSuccess) {
                                 Button {
-                                    self.loginButtonTapped = true
+                                    viewModel.login()
                                 } label: {
                                     Text("Sign in")
                                         .font(.custom(FontFamily.SFProRounded.bold, size: 18))
@@ -85,12 +94,12 @@ struct LoginScreen: View {
                                 Text("Don't have an accont?")
                                     .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                     .foregroundColor(.white)
-                                NavigationLink(destination: RegistrationScreen(), isActive: $registrationLabelTapped) {
+                                NavigationLink(destination: RegistrationScreen(), isActive: $viewModel.registrationLabelTapped) {
                                     Text("Sign up")
                                         .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                         .foregroundColor(.blue)
                                         .onTapGesture {
-                                            self.registrationLabelTapped = true
+                                            viewModel.registrationLabelTapped = true
                                         }
                                 }
                             }
