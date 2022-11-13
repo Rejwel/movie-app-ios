@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
+import ExytePopupView
 
 struct LoginScreen: View {
+
     @ObservedObject private var viewModel = LoginViewModel()
+    @State private var showingPopup = false
 
     var body: some View {
 
@@ -45,6 +48,7 @@ struct LoginScreen: View {
                                     .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                             }
                             .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
+                            .textInputAutocapitalization(.never)
                             .disableAutocorrection(true)
                             .frame(width: 327, height: 64)
                             .background(Asset.Colors.btnGray.swiftUIColor)
@@ -58,6 +62,7 @@ struct LoginScreen: View {
                                     .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                             }
                             .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
+                            .textInputAutocapitalization(.never)
                             .disableAutocorrection(true)
                             .frame(width: 327, height: 64)
                             .background(Asset.Colors.btnGray.swiftUIColor)
@@ -98,7 +103,7 @@ struct LoginScreen: View {
                                 .foregroundColor(.white)
 
                             NavigationLink {
-                                RegistrationScreen()
+                                RegistrationScreen(showingPopup: $showingPopup)
                             } label: {
                                 Text("Sign up")
                                     .font(.custom(FontFamily.SFProRounded.bold, size: 18))
@@ -112,6 +117,37 @@ struct LoginScreen: View {
             }
         }
         .toolbar(.hidden, for: .navigationBar)
+        .popup(isPresented: $showingPopup,
+               type: .floater(verticalPadding: 15, useSafeAreaInset: true),
+               position: .top,
+               autohideIn: 3.5,
+               dragToDismiss: true) {
+            ZStack {
+                VStack(alignment: .center) {
+                    Text("Congratulations!")
+                        .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.white)
+                        .background(.blue)
+                        .cornerRadius(AppConstants.buttonCornerRadius)
+                    Text("You have successfully registered your account!")
+                        .font(.custom(FontFamily.SFProRounded.bold, size: 14))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.white)
+                        .padding(.top, 1)
+                    Text("Please log in to continue.")
+                        .font(.custom(FontFamily.SFProRounded.bold, size: 14))
+                        .multilineTextAlignment(.center)
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .padding(.top, 1)
+                }
+            }
+            .padding()
+            .frame(width: 327, height: 130)
+            .background(.blue)
+            .cornerRadius(AppConstants.buttonCornerRadius)
+        }
     }
 }
 

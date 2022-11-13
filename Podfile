@@ -9,6 +9,7 @@ target 'movie-app-ios' do
   pod 'IQKeyboardManagerSwift'
   pod 'SVProgressHUD'
   pod 'Kingfisher'
+  pod 'ExytePopupView'
 	
   # pod 'PhoneNumberKit'
   # pod 'GoogleSignIn'

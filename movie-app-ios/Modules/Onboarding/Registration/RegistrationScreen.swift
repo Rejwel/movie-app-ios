@@ -6,18 +6,29 @@
 //
 
 import SwiftUI
+import ExytePopupView
 
 struct RegistrationScreen: View {
-    @State private var email: String = ""
-    @State private var login: String = ""
-    @State private var password: String = ""
+
+    @Environment(\.presentationMode) var presentation
+
+    @StateObject private var viewModel = RegistrationViewModel()
+
+    @Binding var showingPopup: Bool
 
     var body: some View {
 
-        NavigationStack {
+        NavigationView {
             ZStack {
                 Asset.Colors.btnDark.swiftUIColor
                     .ignoresSafeArea()
+
+                if viewModel.isLoading {
+                    ProgressView()
+                        .progressViewStyle(CircularProgressViewStyle(tint: .white))
+                        .scaleEffect(3)
+                        .zIndex(1)
+                }
 
                 VStack {
                     VStack {
@@ -30,57 +41,68 @@ struct RegistrationScreen: View {
                             .padding(.top, 2)
                     }
                     .padding(.top, 64)
-                    VStack {
-                        TextField("", text: $email)
-                            .placeholder(when: email.isEmpty) {
+                    VStack(alignment: .leading) {
+                        TextField("", text: $viewModel.emailAddress)
+                            .placeholder(when: $viewModel.emailAddress.wrappedValue.isEmpty) {
                                 Text("e-mail")
                                     .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                     .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                             }
                             .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
+                            .textInputAutocapitalization(.never)
                             .disableAutocorrection(true)
-                            .multilineTextAlignment(.leading)
                             .frame(width: 327, height: 64)
                             .background(Asset.Colors.btnGray.swiftUIColor)
                             .cornerRadius(AppConstants.buttonCornerRadius)
                             .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                             .font(.custom(FontFamily.SFProRounded.bold, size: 18))
-                        TextField("", text: $login)
-                            .placeholder(when: login.isEmpty) {
+                        TextField("", text: $viewModel.username)
+                            .placeholder(when: $viewModel.username.wrappedValue.isEmpty) {
                                 Text("login")
                                     .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                     .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                             }
                             .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
+                            .textInputAutocapitalization(.never)
                             .disableAutocorrection(true)
-                            .multilineTextAlignment(.leading)
                             .frame(width: 327, height: 64)
                             .background(Asset.Colors.btnGray.swiftUIColor)
                             .cornerRadius(AppConstants.buttonCornerRadius)
                             .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                             .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                             .padding(.top, 16)
-                        SecureField("password", text: $password)
-                            .placeholder(when: password.isEmpty) {
+                        SecureField("password", text: $viewModel.password)
+                            .placeholder(when: $viewModel.password.wrappedValue.isEmpty) {
                                 Text("password")
                                     .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                     .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                             }
                             .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
+                            .textInputAutocapitalization(.never)
                             .disableAutocorrection(true)
-                            .multilineTextAlignment(.leading)
                             .frame(width: 327, height: 64)
                             .background(Asset.Colors.btnGray.swiftUIColor)
                             .cornerRadius(AppConstants.buttonCornerRadius)
                             .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
                             .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                             .padding(.top, 16)
+                        Text($viewModel.errorMessage.wrappedValue)
+                            .foregroundColor(.red)
+                            .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                            .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
+                            .padding(.top, 16)
                     }
                     .padding(.top, 64)
                     Spacer()
                     VStack {
+
                         Button {
-                            print("clicked")
+                            viewModel.register { userCreated in
+                                if userCreated {
+                                    self.presentation.wrappedValue.dismiss()
+                                    showingPopup = true
+                                }
+                            }
                         } label: {
                             Text("Sign up")
                                 .font(.custom(FontFamily.SFProRounded.bold, size: 18))
@@ -98,6 +120,9 @@ struct RegistrationScreen: View {
                             Text("Sign in")
                                 .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                                 .foregroundColor(.blue)
+                                .onTapGesture {
+                                    self.presentation.wrappedValue.dismiss()
+                                }
                         }
 
                     }
@@ -110,6 +135,6 @@ struct RegistrationScreen: View {
 
 struct RegistrationScreen_Previews: PreviewProvider {
     static var previews: some View {
-        RegistrationScreen()
+        RegistrationScreen(showingPopup: .constant(false))
     }
 }
