@@ -7,6 +7,11 @@
 
 import SwiftUI
 
+enum LoginDestination: Hashable {
+    case registration
+    case login
+}
+
 class LoginViewModel: ObservableObject {
 
     @Published var username = ""
@@ -15,8 +20,7 @@ class LoginViewModel: ObservableObject {
     @Published var errorMessage = ""
 
     @Published var isLoading = false
-    @Published var loginSuccess = false
-    @Published var registrationLabelTapped = false
+    @Published var isValid = false
 
     public func login() {
         isLoading = true
@@ -24,13 +28,12 @@ class LoginViewModel: ObservableObject {
             switch res {
             case .success(let success):
                 self?.errorMessage = ""
-                self?.loginSuccess = true
-                // TODO: Token management
+                self?.isValid = true
+                KeychainHelper.shared.saveAppTokenToKeychain(success)
             case .failure(let failure):
                 self?.errorMessage = failure.message
                 self?.isLoading = false
             }
         }
     }
-
 }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct FilmDetails: View {
+
     var body: some View {
         ZStack {
             VStack {
@@ -76,7 +77,6 @@ struct FilmDetails: View {
             Image("template_image")
                 .resizable()
                 .scaledToFill()
-//                .frame(width: UIScreen.screenWidth, alignment: .center)
                 .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear, .clear]),
                                      startPoint: .top, endPoint: .bottom))
                 .edgesIgnoringSafeArea(.top)
