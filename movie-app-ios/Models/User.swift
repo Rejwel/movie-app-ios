@@ -10,7 +10,7 @@ import SwiftUI
 struct User: Codable {
     let id: String
     let username: String
-    let favoriteGenres: [Genre]
-    let favoriteMovies: [Movie]
-    let notificationsMovie: [Movie]
+    let favoriteGenres: [Genre?]
+    let favoriteMovies: [Movie?]
+    let notificationsMovie: [Movie?]
 }

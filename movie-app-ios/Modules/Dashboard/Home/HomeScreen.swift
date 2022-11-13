@@ -10,6 +10,8 @@ import SwiftUI
 struct HomeScreen: View {
     @State private var searchText = ""
 
+    @ObservedObject private var viewModel = HomeModel()
+
     var body: some View {
         NavigationView {
             ZStack {
