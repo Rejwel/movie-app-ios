@@ -41,34 +41,9 @@ struct LoginScreen: View {
                     }
                     .padding(.top, 64)
                     VStack(alignment: .leading) {
-                        TextField("", text: $viewModel.username)
-                            .placeholder(when: $viewModel.username.wrappedValue.isEmpty) {
-                                Text("login")
-                                    .font(.custom(FontFamily.SFProRounded.bold, size: 18))
-                                    .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
-                            }
-                            .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
-                            .textInputAutocapitalization(.never)
-                            .disableAutocorrection(true)
-                            .frame(width: 327, height: 64)
-                            .background(Asset.Colors.btnGray.swiftUIColor)
-                            .cornerRadius(AppConstants.buttonCornerRadius)
-                            .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
-                            .font(.custom(FontFamily.SFProRounded.bold, size: 18))
-                        SecureField("password", text: $viewModel.password)
-                            .placeholder(when: $viewModel.password.wrappedValue.isEmpty) {
-                                Text("password")
-                                    .font(.custom(FontFamily.SFProRounded.bold, size: 18))
-                                    .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
-                            }
-                            .padding(.init(top: 0, leading: 30, bottom: 0, trailing: 30))
-                            .textInputAutocapitalization(.never)
-                            .disableAutocorrection(true)
-                            .frame(width: 327, height: 64)
-                            .background(Asset.Colors.btnGray.swiftUIColor)
-                            .cornerRadius(AppConstants.buttonCornerRadius)
-                            .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
-                            .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+
+                        TextInput(text: "username", binding: $viewModel.username)
+                        SecuredTextInput(text: "password", binding: $viewModel.password)
                             .padding(.top, 16)
                         Text($viewModel.errorMessage.wrappedValue)
                             .foregroundColor(.red)
@@ -79,23 +54,13 @@ struct LoginScreen: View {
                     .padding(.top, 64)
                     Spacer()
                     VStack {
-                        
-                        NavigationLink(isActive: $viewModel.isValid) {
+
+                        PrimaryButton(text: "Sign in", isActive: $viewModel.isValid) {
+                            viewModel.login()
+                        } destination: {
                             Navigator()
-                        } label: {
-                            Button {
-                                viewModel.login()
-                            } label: {
-                                Text("Sign in")
-                                    .font(.custom(FontFamily.SFProRounded.bold, size: 18))
-                                    .foregroundColor(.white)
-                                    .frame(width: 327, height: 64)
-                                    .buttonStyle(.automatic)
-                                    .background(.blue)
-                                    .cornerRadius(AppConstants.buttonCornerRadius)
-                                    .padding(.bottom, 16)
-                            }
                         }
+                        .padding(.bottom, 16)
 
                         HStack {
                             Text("Don't have an accont?")
@@ -110,7 +75,6 @@ struct LoginScreen: View {
                                     .foregroundColor(.blue)
                             }
                         }
-
                     }
                     .padding(.bottom, 64)
                 }

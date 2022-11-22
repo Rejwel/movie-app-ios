@@ -37,7 +37,6 @@ struct PrimaryButton<Content: View>: View {
                     .buttonStyle(.automatic)
                     .background(.blue)
                     .cornerRadius(AppConstants.buttonCornerRadius)
-                    .padding(.bottom, 16)
             }
         }
     }
