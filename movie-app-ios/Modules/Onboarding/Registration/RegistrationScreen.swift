@@ -124,7 +124,6 @@ struct RegistrationScreen: View {
                                     self.presentation.wrappedValue.dismiss()
                                 }
                         }
-
                     }
                     .padding(.bottom, 64)
                 }

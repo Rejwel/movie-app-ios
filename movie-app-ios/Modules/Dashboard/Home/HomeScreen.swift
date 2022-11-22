@@ -39,7 +39,8 @@ struct HomeScreen: View {
                 }
             }
         }
-        .toolbar(.hidden, for: .navigationBar)
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 

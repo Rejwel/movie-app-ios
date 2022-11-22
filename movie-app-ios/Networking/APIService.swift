@@ -31,7 +31,7 @@ class APIService {
             completion(.success(value))
         }
     }
-    
+
     public static func refreshToken(completion: @escaping (Result<String, AppError>) -> Void) {
 
         guard let token = KeychainHelper.shared.readKeychainDataString(dataType: .refreshToken) else { return }

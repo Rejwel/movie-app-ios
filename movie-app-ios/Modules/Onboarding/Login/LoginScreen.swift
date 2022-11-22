@@ -79,7 +79,7 @@ struct LoginScreen: View {
                     .padding(.top, 64)
                     Spacer()
                     VStack {
-
+                        
                         NavigationLink(isActive: $viewModel.isValid) {
                             Navigator()
                         } label: {
@@ -116,7 +116,8 @@ struct LoginScreen: View {
                 }
             }
         }
-        .toolbar(.hidden, for: .navigationBar)
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
         .popup(isPresented: $showingPopup,
                type: .floater(verticalPadding: 15, useSafeAreaInset: true),
                position: .top,

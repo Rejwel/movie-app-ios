@@ -13,13 +13,14 @@ struct MovieApp: App {
     private var tokenSaved: Bool
 
     init() {
-        tokenSaved = KeychainHelper.shared.readKeychainDataString(dataType: .bearerToken) != nil
+//        tokenSaved = KeychainHelper.shared.readKeychainDataString(dataType: .bearerToken) != nil
+        tokenSaved = false
     }
 
     var body: some Scene {
         WindowGroup {
             if tokenSaved {
-                HomeScreen()
+                Navigator()
             } else {
                 LandingScreen()
             }
