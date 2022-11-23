@@ -8,13 +8,37 @@
 import SwiftUI
 
 struct Navigator: View {
+
+    private var tokenSaved: Bool
+
+    init() {
+        UITabBar.appearance().unselectedItemTintColor = UIColor.systemBlue
+
+        tokenSaved = KeychainHelper.shared.readKeychainDataString(dataType: .bearerToken) != nil
+    }
+
     var body: some View {
-        TabView {
-            HomeScreen()
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Home")
-                }
+
+        if tokenSaved {
+            TabView {
+                HomeScreen()
+                    .tabItem {
+                        Image(systemName: "house.fill")
+                        Text("Home")
+                    }
+                PreferencesScreen()
+                    .tabItem {
+                        Image(systemName: "heart.fill")
+                        Text("Preferences")
+                    }
+                ProfileScreen()
+                    .tabItem {
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }
+            }
+        } else {
+            LandingScreen()
         }
     }
 }

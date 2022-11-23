@@ -9,17 +9,20 @@ import SwiftUI
 
 struct TextInput: View {
     var text: String
-    var binding: Binding<String>
+    var disabled: Bool?
+    var binding: Binding<String>?
 
     init(text: String,
-         binding: Binding<String>) {
+         disabled: Bool? = nil,
+         binding: Binding<String>? = nil) {
         self.text = text
+        self.disabled = disabled
         self.binding = binding
     }
 
     var body: some View {
-        TextField(text, text: binding)
-            .placeholder(when: binding.wrappedValue.isEmpty) {
+        TextField(text, text: binding ?? .constant(text))
+            .placeholder(when: binding?.wrappedValue.isEmpty ?? true) {
                 Text(text)
                     .font(.custom(FontFamily.SFProRounded.bold, size: 18))
                     .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
@@ -32,5 +35,6 @@ struct TextInput: View {
             .cornerRadius(AppConstants.buttonCornerRadius)
             .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
             .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+            .disabled(disabled ?? false)
     }
 }

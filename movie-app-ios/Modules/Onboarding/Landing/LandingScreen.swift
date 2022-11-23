@@ -46,6 +46,8 @@ struct LandingScreen: View {
                     .overlay(Color.black.opacity(0.4))
             }
         }
+//        .navigationBarTitle("")
+//        .navigationBarHidden(true)
     }
 }
 
