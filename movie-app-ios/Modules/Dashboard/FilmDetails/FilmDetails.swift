@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct FilmDetails: View {
+
+    let movie: Movie
+    let image: KFImage
 
     var body: some View {
         ZStack {
@@ -15,18 +19,24 @@ struct FilmDetails: View {
 
                 Spacer()
 
-                Text("Black Panther: Wakanda Forever")
+                Text(movie.title)
                     .font(.custom(FontFamily.SFProRounded.bold, size: 30))
                     .foregroundColor(.white)
                     .multilineTextAlignment(.center)
                     .padding(.bottom, 20)
 
                 HStack(alignment: .center) {
-                    Text("2022")
-                    Text(" | ")
-                    Text("2h 41m")
-                    Text(" | ")
-                    Text("Action, Sci-Fi")
+                    Text(movie.releaseDate.prefix(4))
+                    if movie.runtime != nil {
+                        Text(" | ")
+                        Text(movie.runtime!)
+                        Text(" | ")
+                    } else {
+                        if movie.releaseDate != nil && !movie.genres.isEmpty {
+                            Text(" | ")
+                        }
+                    }
+                    Text(movie.genres.map { $0.name }.joined(separator: ", "))
                 }
                 .font(.custom(FontFamily.SFProRounded.regular, size: 17))
                 .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
@@ -38,11 +48,13 @@ struct FilmDetails: View {
                         .foregroundColor(.white)
                         .padding(.bottom, 10)
 
-                    Text("The nation of Wakanda is pitted against intervening world powers as they mourn the loss of their king T'Challa.")
-                        .font(.custom(FontFamily.SFProRounded.regular, size: 20))
-                        .padding(.horizontal, 20)
-                        .multilineTextAlignment(.center)
-                        .foregroundColor(.white)
+                    ScrollView {
+                        Text(movie.overview)
+                            .font(.custom(FontFamily.SFProRounded.regular, size: 20))
+                            .padding(.horizontal, 20)
+                            .multilineTextAlignment(.center)
+                            .foregroundColor(.white)
+                    }.frame(height: 150)
                 }
                 .padding(.bottom, 40)
 
@@ -73,7 +85,7 @@ struct FilmDetails: View {
             Asset.Colors.btnDark.swiftUIColor
                 .ignoresSafeArea()
 
-            Image("template_image")
+            image
                 .resizable()
                 .scaledToFill()
                 .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear, .clear]),
@@ -82,11 +94,5 @@ struct FilmDetails: View {
                 .opacity(0.7)
                 .padding(.trailing, 60)
         }
-    }
-}
-
-struct FilmDetails_Previews: PreviewProvider {
-    static var previews: some View {
-        FilmDetails()
     }
 }

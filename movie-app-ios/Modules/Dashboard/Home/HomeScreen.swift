@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Kingfisher
 
 struct HomeScreen: View {
     @State private var searchText = ""
@@ -21,7 +22,7 @@ struct HomeScreen: View {
                 VStack {
                     GenrePicker()
                     Spacer()
-                    FilmView()
+                    FilmView(viewModel: viewModel)
                 }
             }
             .searchable(text: $searchText)
@@ -91,8 +92,9 @@ struct GenrePicker: View {
 
 struct FilmView: View {
     @State var currentIndex: Int = 0
-    @State var films: [Film] = []
+    @State var films: [Movie] = []
     @State var filmTapped = false
+    @ObservedObject var viewModel: HomeModel
 
     var body: some View {
         ZStack {
@@ -103,11 +105,12 @@ struct FilmView: View {
 
                         let size = proxy.size
                         let filmPadding: CGFloat = film.id == films[currentIndex].id ? 10 : 40
+                        let image = KFImage(URL(string: film.posterPath)!)
 
                         NavigationLink {
-                            FilmDetails()
+                            FilmDetails(movie: film, image: image)
                         } label: {
-                            Image(film.filmImage)
+                            image
                                 .resizable()
                                 .aspectRatio(contentMode: .fill)
                                 .frame(width: size.width)
@@ -124,8 +127,8 @@ struct FilmView: View {
             }
             .frame(maxHeight: .infinity, alignment: .top)
             .onAppear {
-                for index in 1...5 {
-                    films.append(Film(filmImage: "template_image"))
+                viewModel.fetchMovies { movies in
+                    films = movies
                 }
             }
             VStack {

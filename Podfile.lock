@@ -1,6 +1,7 @@
 PODS:
   - Alamofire (5.6.2)
   - ExytePopupView (1.2.1)
+  - Introspect (0.1.4)
   - IQKeyboardManagerSwift (6.5.10)
   - Kingfisher (7.3.2)
   - SVProgressHUD (2.2.5)
@@ -9,6 +10,7 @@ PODS:
 DEPENDENCIES:
   - Alamofire
   - ExytePopupView
+  - Introspect
   - IQKeyboardManagerSwift
   - Kingfisher
   - SVProgressHUD
@@ -18,6 +20,7 @@ SPEC REPOS:
   trunk:
     - Alamofire
     - ExytePopupView
+    - Introspect
     - IQKeyboardManagerSwift
     - Kingfisher
     - SVProgressHUD
@@ -26,11 +29,12 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   Alamofire: d368e1ff8a298e6dde360e35a3e68e6c610e7204
   ExytePopupView: e0554c9713665a386a54b356c596858811e84621
+  Introspect: b62c4dd2063072327c21d618ef2bedc3c87bc366
   IQKeyboardManagerSwift: 52962c76ab33532f15ad9f3ff4e5715eda5335bb
   Kingfisher: 0086ad83719761ba9b2cdaf6ef4d5b4878cbae23
   SVProgressHUD: 1428aafac632c1f86f62aa4243ec12008d7a51d6
   SwiftLint: 32ee33ded0636d0905ef6911b2b67bbaeeedafa5
 
-PODFILE CHECKSUM: bd6667e2bb72e6c7289f5b551997f9d3980f80e7
+PODFILE CHECKSUM: f21b16cac449f3838439d63845412e9e48a84fa6
 
 COCOAPODS: 1.11.3

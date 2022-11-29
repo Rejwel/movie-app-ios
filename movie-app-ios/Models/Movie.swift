@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Movie: Codable {
+struct Movie: Codable, Identifiable {
     let id: Int64
     let title: String
     let overview: String
@@ -15,7 +15,7 @@ struct Movie: Codable {
     let releaseDate: String
     let genres: [Genre]
     let posterPath: String
-    let runtime: Double?
+    let runtime: String?
     let status: String?
     let voteAverage: Double
 

@@ -88,11 +88,11 @@ public class KeychainHelper {
 
     func readKeychainDataString(dataType: KeychainData) -> String? {
         guard let data = KeychainHelper.shared.read(service: dataType.rawValue, account: "MovieApp") else {
-            print("Faled to read \(dataType.rawValue) from keychain")
+//            print("Faled to read \(dataType.rawValue) from keychain")
             return nil
         }
         guard let dataString = String(data: data, encoding: .utf8) else {
-            print("Faled to read string from \(dataType.rawValue) in keychain")
+//            print("Faled to read string from \(dataType.rawValue) in keychain")
             return nil
         }
 

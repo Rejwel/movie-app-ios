@@ -11,18 +11,16 @@ class HomeModel: ObservableObject {
 
     @Published var user: User?
 
-    init() {
-//        APIService.refreshToken { res in
-//            switch res {
-//            case .success(let success):
-//                print(success)
-//            case .failure(let failure):
-//                print(failure)
-//            }
-//        }
+    //        APIService.refreshToken { res in
+    //            switch res {
+    //            case .success(let success):
+    //                print(success)
+    //            case .failure(let failure):
+    //                print(failure)
+    //            }
+    //        }
 
-//        fetchUser()
-    }
+    //        fetchUser()
 
     public func fetchUser() {
         APIService.getUser { [weak self] res in
@@ -32,6 +30,18 @@ class HomeModel: ObservableObject {
             case .failure(let failure):
                 print(failure)
                 // TODO: Refresh token
+            }
+        }
+    }
+
+    public func fetchMovies(completion: @escaping ([Movie]) -> Void) {
+        APIService.getMovies(query: "Black%20Panther") { res in
+            switch res {
+            case .success(let success):
+                completion(success)
+            case .failure(let failure):
+                print(failure)
+                completion([])
             }
         }
     }

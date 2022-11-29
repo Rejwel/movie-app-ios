@@ -24,7 +24,8 @@ class APIService {
 
             guard let value = response.value,
                   (200..<300).contains(response.response!.statusCode) else {
-                completion(.failure(AppError(errorCode: response.response!.statusCode, message: "result_failiure")))
+                completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
+                                             message: "result_failiure")))
                 return
             }
 
@@ -45,7 +46,8 @@ class APIService {
                    headers: headers).response { response in
 
             guard (200..<300).contains(response.response!.statusCode) else {
-                completion(.failure(AppError(errorCode: response.response!.statusCode, message: "result_failiure")))
+                completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
+                                             message: "result_failiure")))
                 return
             }
 
@@ -62,7 +64,8 @@ class APIService {
                    encoder: .json).response { response in
 
             guard (200..<300).contains(response.response!.statusCode) else {
-                completion(.failure(AppError(errorCode: response.response!.statusCode, message: "result_failiure")))
+                completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
+                                             message: "result_failiure")))
                 return
             }
 
@@ -84,7 +87,33 @@ class APIService {
 
             guard let value = response.value,
                   (200..<300).contains(response.response!.statusCode) else {
-                completion(.failure(AppError(errorCode: response.response!.statusCode, message: "result_failiure")))
+                completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
+                                             message: "result_failiure")))
+                return
+            }
+
+            completion(.success(value))
+        }
+    }
+
+    public static func getMovies(page: Int = 1,
+                                 query: String,
+                                 completion: @escaping (Result<[Movie], AppError>) -> Void) {
+
+        guard let token = KeychainHelper.shared.readKeychainDataString(dataType: .bearerToken) else { return }
+
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: token)
+        ]
+
+        AF.request("\(APIServiceConstants.ApiURL)/movie/searchMovie/\(page)/\(query)",
+                   method: .get,
+                   headers: headers).responseDecodable(of: [Movie].self) { response in
+
+            guard let value = response.value,
+                  (200..<300).contains(response.response!.statusCode) else {
+                completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
+                                             message: "result_failiure")))
                 return
             }
 

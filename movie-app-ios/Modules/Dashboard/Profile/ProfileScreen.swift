@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileScreen: View {
 
     @ObservedObject private var viewModel = ProfileViewModel()
+    @Binding var uiTabBarController: UITabBarController?
 
     var body: some View {
         NavigationView {
@@ -31,6 +32,7 @@ struct ProfileScreen: View {
                     TextInput(text: "••••••••", disabled: true)
 
                     PrimaryButton(text: "Sign out", isActive: $viewModel.signoutTapped) {
+                        uiTabBarController?.tabBar.removeFromSuperview()
                         viewModel.signoutTap()
                     } destination: {
                         LandingScreen()
@@ -38,11 +40,5 @@ struct ProfileScreen: View {
                 }
             }
         }
-    }
-}
-
-struct ProfileScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        ProfileScreen()
     }
 }

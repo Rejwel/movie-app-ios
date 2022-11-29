@@ -10,6 +10,7 @@ target 'movie-app-ios' do
   pod 'SVProgressHUD'
   pod 'Kingfisher'
   pod 'ExytePopupView'
+  pod 'Introspect'
 	
   # pod 'PhoneNumberKit'
   # pod 'GoogleSignIn'
