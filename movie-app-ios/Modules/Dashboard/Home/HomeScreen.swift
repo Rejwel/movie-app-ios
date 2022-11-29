@@ -10,6 +10,7 @@ import Kingfisher
 
 struct HomeScreen: View {
     @State private var searchText = ""
+    @State private var movies: [Movie] = []
 
     @ObservedObject private var viewModel = HomeModel()
 
@@ -22,10 +23,15 @@ struct HomeScreen: View {
                 VStack {
                     GenrePicker()
                     Spacer()
-                    FilmView(viewModel: viewModel)
+                    FilmView(films: $movies, viewModel: viewModel)
                 }
             }
             .searchable(text: $searchText)
+            .onSubmit(of: .search) {
+                viewModel.fetchMoviesByQuery(query: searchText) { movies in
+                    self.movies = movies
+                }
+            }
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .principal) {
@@ -92,7 +98,7 @@ struct GenrePicker: View {
 
 struct FilmView: View {
     @State var currentIndex: Int = 0
-    @State var films: [Movie] = []
+    @Binding var films: [Movie]
     @State var filmTapped = false
     @ObservedObject var viewModel: HomeModel
 
@@ -127,38 +133,57 @@ struct FilmView: View {
             }
             .frame(maxHeight: .infinity, alignment: .top)
             .onAppear {
-                viewModel.fetchMovies { movies in
-                    films = movies
+                if films.isEmpty {
+                    viewModel.fetchMovies { movies in
+                        films = movies
+                    }
                 }
             }
             VStack {
-                Text("Black Panther: Wakanda Forever")
+                Text(!films.isEmpty ? films[currentIndex].title : "")
+                    .padding(.horizontal, 60)
                     .font(.custom(FontFamily.SFProRounded.regular, size: 18))
                     .foregroundColor(.white)
-                HStack {
-                    Text("Date")
-                        .font(.custom(FontFamily.SFProRounded.regular, size: 18))
-                        .foregroundColor(.white)
-                    Button {
-                        print("clicked")
-                    } label: {
-                        Text("Action")
-                            .foregroundColor(.white)
-                    }
-                    .disabled(true)
-                    .buttonStyle(.borderedProminent)
-                    .cornerRadius(AppConstants.buttonCornerRadius)
+                    if !films.isEmpty {
+                        if films[currentIndex].genres.count > 2 {
+                            VStack {
+                                Text(films[currentIndex].releaseDate.prefix(4))
+                                    .font(.custom(FontFamily.SFProRounded.regular, size: 18))
+                                    .foregroundColor(.white)
+                            }
+                            VStack {
+                                HStack {
+                                    ForEach(films[currentIndex].genres.prefix(3)) { genre in
+                                        Button {
+                                        } label: {
+                                            Text(genre.name)
+                                                .foregroundColor(.white)
+                                        }
+                                        .disabled(true)
+                                        .buttonStyle(.borderedProminent)
+                                        .cornerRadius(AppConstants.buttonCornerRadius)
+                                    }
+                                }
+                            }
+                        } else {
+                            HStack {
+                                Text(films[currentIndex].releaseDate.prefix(4))
+                                    .font(.custom(FontFamily.SFProRounded.regular, size: 18))
+                                    .foregroundColor(.white)
 
-                    Button {
-                        print("clicked")
-                    } label: {
-                        Text("Sci-Fi")
-                            .foregroundColor(.white)
+                                ForEach(films[currentIndex].genres) { genre in
+                                    Button {
+                                    } label: {
+                                        Text(genre.name)
+                                            .foregroundColor(.white)
+                                    }
+                                    .disabled(true)
+                                    .buttonStyle(.borderedProminent)
+                                    .cornerRadius(AppConstants.buttonCornerRadius)
+                                }
+                            }
+                        }
                     }
-                    .disabled(true)
-                    .buttonStyle(.borderedProminent)
-                    .cornerRadius(AppConstants.buttonCornerRadius)
-                }
             }
             .frame(maxHeight: .infinity, alignment: .bottom)
             .padding(.bottom, 20)

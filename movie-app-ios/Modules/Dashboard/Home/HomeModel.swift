@@ -45,4 +45,19 @@ class HomeModel: ObservableObject {
             }
         }
     }
+
+    public func fetchMoviesByQuery(query: String,
+                                   completion: @escaping ([Movie]) -> Void) {
+        print("in")
+        guard query.count > 0 else { return }
+        APIService.getMovies(query: query) { res in
+            switch res {
+            case .success(let success):
+                completion(success)
+            case .failure(let failure):
+                print(failure)
+                completion([])
+            }
+        }
+    }
 }
