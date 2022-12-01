@@ -11,6 +11,7 @@ import Kingfisher
 struct HomeScreen: View {
     @State private var searchText = ""
     @State private var movies: [Movie] = []
+    @State var currentIndexOfFilm: Int = 0
 
     @ObservedObject private var viewModel = HomeViewModel()
 
@@ -23,10 +24,11 @@ struct HomeScreen: View {
                 VStack {
                     GenrePicker()
                     Spacer()
-                    FilmView(films: $movies, viewModel: viewModel)
+                    FilmView(currentIndex: $currentIndexOfFilm, films: $movies, viewModel: viewModel)
                 }
             }
             .searchable(text: $searchText)
+            .foregroundColor(.white)
             .onSubmit(of: .search) {
                 viewModel.fetchMoviesByQuery(query: searchText) { movies in
                     self.movies = movies
@@ -97,7 +99,7 @@ struct GenrePicker: View {
 }
 
 struct FilmView: View {
-    @State var currentIndex: Int = 0
+    @Binding var currentIndex: Int
     @Binding var films: [Movie]
     @State var filmTapped = false
     @ObservedObject var viewModel: HomeViewModel
@@ -114,7 +116,7 @@ struct FilmView: View {
                         let image = KFImage(URL(string: film.posterPath)!)
 
                         NavigationLink {
-                            FilmDetails(movie: film, image: image)
+                            FilmDetails(movie: film, image: image, isFavorite: false)
                         } label: {
                             image
                                 .resizable()

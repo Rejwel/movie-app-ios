@@ -11,13 +11,15 @@ class FilmDetailsViewModel: ObservableObject {
 
     func addMovieToFavourite(ID: String) {
 
-        APIService.addMovieToFavoritesByID(ID: ID) { res in
-            switch res {
-            case .success(let success):
-                print(success)
-            case .failure(let failure):
-                print(failure)
-            }
+        APIService.addMovieToFavoritesByID(ID: ID) { _ in
+
+        }
+    }
+
+    func removeFavoriteMovie(ID: String) {
+
+        APIService.removeMovieFromFavoritesByID(ID: ID) { _ in
+
         }
     }
 }

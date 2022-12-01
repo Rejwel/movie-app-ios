@@ -186,8 +186,6 @@ class APIService {
                 return
             }
 
-            print(String(decoding: response.data!, as: UTF8.self))
-
             completion(.success("result_success"))
         }
     }

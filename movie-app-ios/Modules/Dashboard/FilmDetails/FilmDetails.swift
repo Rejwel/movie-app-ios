@@ -14,6 +14,7 @@ struct FilmDetails: View {
 
     let movie: Movie
     let image: KFImage
+    @State var isFavorite: Bool
 
     var body: some View {
         ZStack {
@@ -71,11 +72,19 @@ struct FilmDetails: View {
                     }
                     .padding(.horizontal, 20)
                     Button {
-                        viewModel.addMovieToFavourite(ID: String(movie.id))
+                        isFavorite = !isFavorite
+
+                        if isFavorite {
+                            viewModel.addMovieToFavourite(ID: String(movie.id))
+                        } else {
+                            viewModel.removeFavoriteMovie(ID: String(movie.id))
+                        }
                     } label: {
-                        Image(systemName: "heart")
-                            .font(.system(size: 32, weight: .regular))
-                            .tint(.white)
+                        withAnimation {
+                            Image(systemName: isFavorite ? "heart.fill" : "heart")
+                                .font(.system(size: 32, weight: .regular))
+                                .tint(.white)
+                        }
                     }
                     .padding(.horizontal, 20)
                     Spacer()

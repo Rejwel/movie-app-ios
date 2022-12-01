@@ -13,6 +13,7 @@ struct PreferencesScreen: View {
     @ObservedObject private var viewModel = PreferencesViewModel()
 
     @State private var movies: [Movie] = []
+    @State private var timerElapsed: Bool = false
 
     var body: some View {
         NavigationView {
@@ -29,11 +30,26 @@ struct PreferencesScreen: View {
                     }
                     .padding(.top, 64)
 
+                    if movies.isEmpty {
+                        if timerElapsed {
+                            withAnimation {
+                                Text("You have no films yet, add them!")
+                                    .font(.custom(FontFamily.SFProRounded.bold, size: 24))
+                                    .foregroundColor(.white)
+                                    .multilineTextAlignment(.center)
+                                    .padding(.horizontal, 16)
+                                    .padding(.top, 64)
+                            }
+                        }
+                    }
+
                     ScrollView {
                         ForEach(movies) { movie in
                             if !movies.isEmpty {
                                 NavigationLink {
-                                    FilmDetails(movie: movie, image: KFImage(URL(string: movie.posterPath)!))
+                                    FilmDetails(movie: movie,
+                                                image: KFImage(URL(string: movie.posterPath)!),
+                                                isFavorite: true)
                                 } label: {
                                     HStack {
                                         KFImage(URL(string: movie.posterPath)!)
@@ -78,11 +94,16 @@ struct PreferencesScreen: View {
                                             .padding(.horizontal, 16)
                                     }
                                 }
-
                             }
                         }
                     }
                     .padding(.top, 32)
+                    .onAppear {
+                        timerElapsed = false
+                        DispatchQueue.main.asyncAfter(deadline: .now() + 1.5) {
+                            timerElapsed = true
+                        }
+                    }
                 }
             }
         }

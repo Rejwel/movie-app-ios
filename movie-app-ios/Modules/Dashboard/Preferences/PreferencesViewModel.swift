@@ -14,20 +14,15 @@ class PreferencesViewModel: ObservableObject {
             switch res {
             case .success(let success):
                 completion(success)
-            case .failure(let failure):
-                print(failure)
+            case .failure:
+                break
             }
         }
     }
 
     func removeFavoriteMovie(ID: String) {
-        APIService.removeMovieFromFavoritesByID(ID: ID) { res in
-            switch res {
-            case .success(let success):
-                print(success)
-            case .failure(let failure):
-                print(failure)
-            }
+        APIService.removeMovieFromFavoritesByID(ID: ID) { _ in
+
         }
     }
 }
