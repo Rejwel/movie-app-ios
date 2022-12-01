@@ -9,7 +9,7 @@ import SwiftUI
 import Alamofire
 
 struct APIServiceConstants {
-    static let ApiURL = "https://springmovieappserver.herokuapp.com/api"
+    static let ApiURL = "https://movieserver.azurewebsites.net/api"
 }
 
 class APIService {
@@ -25,7 +25,7 @@ class APIService {
             guard let value = response.value,
                   (200..<300).contains(response.response!.statusCode) else {
                 completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
-                                             message: "result_failiure")))
+                                             message: "result_failure")))
                 return
             }
 
@@ -47,7 +47,7 @@ class APIService {
 
             guard (200..<300).contains(response.response!.statusCode) else {
                 completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
-                                             message: "result_failiure")))
+                                             message: "result_failure")))
                 return
             }
 
@@ -65,7 +65,7 @@ class APIService {
 
             guard (200..<300).contains(response.response!.statusCode) else {
                 completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
-                                             message: "result_failiure")))
+                                             message: "result_failure")))
                 return
             }
 
@@ -88,7 +88,7 @@ class APIService {
             guard let value = response.value,
                   (200..<300).contains(response.response!.statusCode) else {
                 completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
-                                             message: "result_failiure")))
+                                             message: "result_failure")))
                 return
             }
 
@@ -113,11 +113,82 @@ class APIService {
             guard let value = response.value,
                   (200..<300).contains(response.response!.statusCode) else {
                 completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
-                                             message: "result_failiure")))
+                                             message: "result_failure")))
                 return
             }
 
             completion(.success(value))
+        }
+    }
+
+    public static func getUserFavoriteMovies(completion: @escaping (Result<[Movie], AppError>) -> Void) {
+
+        guard let token = KeychainHelper.shared.readKeychainDataString(dataType: .bearerToken) else { return }
+
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: token)
+        ]
+
+        AF.request("\(APIServiceConstants.ApiURL)/movie/getUserMovieList",
+                   method: .get,
+                   headers: headers).responseDecodable(of: [Movie].self) { response in
+
+            guard let value = response.value,
+                  (200..<300).contains(response.response!.statusCode) else {
+                completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
+                                             message: "result_failure")))
+                return
+            }
+
+            completion(.success(value))
+        }
+    }
+
+    public static func addMovieToFavoritesByID(ID: String, completion: @escaping (Result<String, AppError>) -> Void) {
+
+        guard let token = KeychainHelper.shared.readKeychainDataString(dataType: .bearerToken) else { return }
+
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: token)
+        ]
+
+        AF.request("\(APIServiceConstants.ApiURL)/movie/addMovieById/\(ID)",
+                   method: .put,
+                   headers: headers).response { response in
+
+            guard response.data != nil,
+                  (200..<300).contains(response.response!.statusCode) else {
+                completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
+                                             message: "result_failure")))
+                return
+            }
+
+            completion(.success("result_success"))
+        }
+    }
+
+    public static func removeMovieFromFavoritesByID(ID: String, completion: @escaping (Result<String, AppError>) -> Void) {
+
+        guard let token = KeychainHelper.shared.readKeychainDataString(dataType: .bearerToken) else { return }
+
+        let headers: HTTPHeaders = [
+            .authorization(bearerToken: token)
+        ]
+
+        AF.request("\(APIServiceConstants.ApiURL)/movie/removeMovieById/\(ID)",
+                   method: .delete,
+                   headers: headers).response { response in
+
+            guard response.data != nil,
+                  (200..<300).contains(response.response!.statusCode) else {
+                completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
+                                             message: "result_failure")))
+                return
+            }
+
+            print(String(decoding: response.data!, as: UTF8.self))
+
+            completion(.success("result_success"))
         }
     }
 }

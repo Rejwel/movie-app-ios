@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-class HomeModel: ObservableObject {
+class HomeViewModel: ObservableObject {
 
     @Published var user: User?
 
@@ -48,9 +48,9 @@ class HomeModel: ObservableObject {
 
     public func fetchMoviesByQuery(query: String,
                                    completion: @escaping ([Movie]) -> Void) {
-        print("in")
         guard query.count > 0 else { return }
-        APIService.getMovies(query: query) { res in
+        let queryForRequest = query.replacingOccurrences(of: " ", with: "%20")
+        APIService.getMovies(query: queryForRequest) { res in
             switch res {
             case .success(let success):
                 completion(success)

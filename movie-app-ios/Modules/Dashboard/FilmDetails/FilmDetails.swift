@@ -10,6 +10,8 @@ import Kingfisher
 
 struct FilmDetails: View {
 
+    @ObservedObject private var viewModel = FilmDetailsViewModel()
+
     let movie: Movie
     let image: KFImage
 
@@ -69,7 +71,7 @@ struct FilmDetails: View {
                     }
                     .padding(.horizontal, 20)
                     Button {
-                        print("clicked")
+                        viewModel.addMovieToFavourite(ID: String(movie.id))
                     } label: {
                         Image(systemName: "heart")
                             .font(.system(size: 32, weight: .regular))

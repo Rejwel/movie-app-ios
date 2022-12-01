@@ -12,7 +12,7 @@ struct HomeScreen: View {
     @State private var searchText = ""
     @State private var movies: [Movie] = []
 
-    @ObservedObject private var viewModel = HomeModel()
+    @ObservedObject private var viewModel = HomeViewModel()
 
     var body: some View {
         NavigationView {
@@ -100,7 +100,7 @@ struct FilmView: View {
     @State var currentIndex: Int = 0
     @Binding var films: [Movie]
     @State var filmTapped = false
-    @ObservedObject var viewModel: HomeModel
+    @ObservedObject var viewModel: HomeViewModel
 
     var body: some View {
         ZStack {
