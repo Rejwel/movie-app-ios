@@ -35,7 +35,7 @@ struct FilmDetails: View {
                         Text(movie.runtime!)
                         Text(" | ")
                     } else {
-                        if movie.releaseDate != nil && !movie.genres.isEmpty {
+                        if movie.releaseDate.isEmpty && !movie.genres.isEmpty {
                             Text(" | ")
                         }
                     }
@@ -57,6 +57,9 @@ struct FilmDetails: View {
                             .padding(.horizontal, 20)
                             .multilineTextAlignment(.center)
                             .foregroundColor(.white)
+                            .onAppear {
+                                viewModel.readDescription(description: movie.overview)
+                            }
                     }.frame(height: 150)
                 }
                 .padding(.bottom, 40)

@@ -28,9 +28,11 @@ struct HomeScreen: View {
                 }
             }
             .searchable(text: $searchText)
+            .disableAutocorrection(true)
             .foregroundColor(.white)
             .onSubmit(of: .search) {
                 viewModel.fetchMoviesByQuery(query: searchText) { movies in
+                    currentIndexOfFilm = 0
                     self.movies = movies
                 }
             }
@@ -114,9 +116,18 @@ struct FilmView: View {
                         let size = proxy.size
                         let filmPadding: CGFloat = film.id == films[currentIndex].id ? 10 : 40
                         let image = KFImage(URL(string: film.posterPath)!)
+                                        .placeholder({
+                                            ZStack {
+                                                Color.gray
+                                            }
+                                        })
+                                        .loadDiskFileSynchronously()
+                                        .fade(duration: 0.25)
 
                         NavigationLink {
-                            FilmDetails(movie: film, image: image, isFavorite: false)
+                            FilmDetails(movie: film,
+                                        image: image,
+                                        isFavorite: false)
                         } label: {
                             image
                                 .resizable()
@@ -137,16 +148,17 @@ struct FilmView: View {
             .onAppear {
                 if films.isEmpty {
                     viewModel.fetchMovies { movies in
+                        currentIndex = 0
                         films = movies
                     }
                 }
             }
             VStack {
-                Text(!films.isEmpty ? films[currentIndex].title : "")
-                    .padding(.horizontal, 60)
-                    .font(.custom(FontFamily.SFProRounded.regular, size: 18))
-                    .foregroundColor(.white)
                     if !films.isEmpty {
+                        Text(films[currentIndex].title)
+                            .padding(.horizontal, 60)
+                            .font(.custom(FontFamily.SFProRounded.regular, size: 18))
+                            .foregroundColor(.white)
                         if films[currentIndex].genres.count > 2 {
                             VStack {
                                 Text(films[currentIndex].releaseDate.prefix(4))

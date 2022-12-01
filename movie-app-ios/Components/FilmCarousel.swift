@@ -44,6 +44,11 @@ struct FilmCarousel<Content: View, T: Identifiable>: View {
                         .frame(width: proxy.size.width - trailingSpace)
                 }
             }
+            .onChange(of: index, perform: { _ in
+                if index == 0 {
+                    currentIndex = 0
+                }
+            })
             .padding(.horizontal, spacing)
             .offset(x: (CGFloat(currentIndex) * -width) + adjustmentWidth + offset)
             .highPriorityGesture(

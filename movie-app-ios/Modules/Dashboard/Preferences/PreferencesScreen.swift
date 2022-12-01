@@ -48,11 +48,25 @@ struct PreferencesScreen: View {
                             if !movies.isEmpty {
                                 NavigationLink {
                                     FilmDetails(movie: movie,
-                                                image: KFImage(URL(string: movie.posterPath)!),
-                                                isFavorite: true)
+                                                image: KFImage(URL(string: movie.posterPath)!)
+                                                        .placeholder({
+                                                            ZStack {
+                                                                Color.gray
+                                                            }
+                                                        })
+                                                        .loadDiskFileSynchronously()
+                                                        .fade(duration: 0.25),
+                                                            isFavorite: true)
                                 } label: {
                                     HStack {
                                         KFImage(URL(string: movie.posterPath)!)
+                                            .placeholder({
+                                                ZStack {
+                                                    Color.gray
+                                                }
+                                            })
+                                            .loadDiskFileSynchronously()
+                                            .fade(duration: 0.25)
                                             .resizable()
                                             .frame(width: 80, height: 100)
                                             .aspectRatio(contentMode: .fit)

@@ -11,16 +11,11 @@ class HomeViewModel: ObservableObject {
 
     @Published var user: User?
 
-    //        APIService.refreshToken { res in
-    //            switch res {
-    //            case .success(let success):
-    //                print(success)
-    //            case .failure(let failure):
-    //                print(failure)
-    //            }
-    //        }
+    public func refreshToken() {
+        APIService.refreshToken { _ in
 
-    //        fetchUser()
+        }
+    }
 
     public func fetchUser() {
         APIService.getUser { [weak self] res in
@@ -38,7 +33,7 @@ class HomeViewModel: ObservableObject {
         APIService.getMovies(query: "Black%20Panther") { res in
             switch res {
             case .success(let success):
-                completion(success)
+                completion(success.filter { $0.posterPath != "" })
             case .failure(let failure):
                 print(failure)
                 completion([])
