@@ -38,9 +38,11 @@ struct Navigator: View {
                         Text("Profile")
                     }
             }
+            .transition(.opacity)
         } else {
             LandingScreen()
                 .environmentObject(tokenHelper)
+                .transition(.opacity)
         }
     }
 }

@@ -58,7 +58,9 @@ struct LoginScreen: View {
 
                         Button {
                             viewModel.login {
-                                tokenHelper.isLoggedIn = true
+                                withAnimation {
+                                    tokenHelper.isLoggedIn = true
+                                }
                             }
                         } label: {
                             Text("Sign in")

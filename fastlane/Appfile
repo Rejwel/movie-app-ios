@@ -1,0 +1,5 @@
+app_identifier("com.rey.movieapp") # The bundle identifier of your app
+apple_id("paweldera@icloud.com") # Your Apple email address
+
+itc_team_id("PQ2YW6R3NC") # App Store Connect Team ID
+team_id("PQ2YW6R3NC") # Developer Portal Team ID

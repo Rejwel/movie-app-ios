@@ -44,7 +44,9 @@ struct ProfileScreen: View {
 
                     Button {
                         viewModel.signoutTap {
-                            tokenHelper.isLoggedIn = false
+                            withAnimation {
+                                tokenHelper.isLoggedIn = false
+                            }
                         }
                     } label: {
                         Text("Sign out")
