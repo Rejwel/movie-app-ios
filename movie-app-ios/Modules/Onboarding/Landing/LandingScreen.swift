@@ -7,7 +7,8 @@
 import SwiftUI
 
 struct LandingScreen: View {
-    @State private var buttonTapped = false
+
+    @EnvironmentObject var tokenHelper: TokenHelper
 
     var body: some View {
 
@@ -26,18 +27,17 @@ struct LandingScreen: View {
                     Spacer()
                     VStack {
                         Spacer()
-                        NavigationLink(destination: LoginScreen(), isActive: $buttonTapped) {
-                            Button {
-                                self.buttonTapped = true
-                            } label: {
-                                Text("Get started")
-                                    .font(.custom(FontFamily.SFProRounded.bold, size: 18))
-                                    .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
-                                    .frame(width: 327, height: 64)
-                            }
-                            .background(Asset.Colors.btnDark.swiftUIColor)
-                            .cornerRadius(AppConstants.buttonCornerRadius)
+                        NavigationLink {
+                            LoginScreen()
+                                .environmentObject(tokenHelper)
+                        } label: {
+                            Text("Get started")
+                                .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                                .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
+                                .frame(width: 327, height: 64)
                         }
+                        .background(Asset.Colors.btnDark.swiftUIColor)
+                        .cornerRadius(AppConstants.buttonCornerRadius)
                     }
                 }
             }
@@ -49,6 +49,8 @@ struct LandingScreen: View {
                     .overlay(Color.black.opacity(0.4))
             }
         }
+        .navigationBarTitle("")
+        .navigationBarHidden(true)
     }
 }
 
