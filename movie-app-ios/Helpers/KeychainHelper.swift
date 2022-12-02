@@ -6,12 +6,14 @@
 //
 
 import Foundation
+import UIKit
 
 public class KeychainHelper {
 
     enum KeychainData: String {
         case bearerToken = "bearer-token"
         case refreshToken = "refresh-token"
+        case tokenExpirationDate = "token-expiration-date"
         case tokenExpirationTime = "token-expiration-time"
     }
 
@@ -70,21 +72,65 @@ public class KeychainHelper {
         SecItemDelete(query)
     }
 
+    // MARK: read / delete items in keychain
+
     func saveAppTokenToKeychain(_ appToken: AppToken) {
 
         saveKeychainDataString(dataType: .bearerToken, dataString: appToken.accessToken)
         saveKeychainDataString(dataType: .refreshToken, dataString: appToken.refreshToken)
+        saveKeychainDataString(dataType: .tokenExpirationTime, dataString: appToken.expirationTime)
 
-        // TODO: Check and add if possible
-//        let formatter = DateFormatter()
-//        formatter.dateStyle = .medium
-//        formatter.timeStyle = .medium
-//        let expirationDate = Date(timeIntervalSince1970: TimeInterval(userCredentials.expirationTime) / 1000) + TimeInterval(TimeZone.current.secondsFromGMT())
-//
-//        saveKeychainDataString(dataType: .tokenExpirationTime, dataString: formatter.string(from: expirationDate))
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
+        let expirationDate = Date(timeIntervalSince1970: TimeInterval(appToken.expirationTime)! / 1000) + TimeInterval(TimeZone.current.secondsFromGMT())
+
+        saveKeychainDataString(dataType: .tokenExpirationDate, dataString: formatter.string(from: expirationDate))
     }
 
-    // MARK: read / delete items in keyhchain
+    private func isTokenExpired() -> Bool {
+        guard let expirationDate = KeychainHelper.shared.readKeychainDataString(dataType: .tokenExpirationDate) else {
+            return true
+        }
+
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        formatter.timeStyle = .medium
+        let now = Date() + TimeInterval(TimeZone.current.secondsFromGMT())
+
+        guard let formattedDate = formatter.date(from: expirationDate) else { return true }
+
+        if formattedDate < now {
+            return false
+        } else {
+            return true
+        }
+    }
+
+    func checkIfTokenExpiredAndExtend() {
+        if isTokenExpired() {
+            guard let expirationTime = KeychainHelper.shared.readKeychainDataString(dataType: .tokenExpirationTime) else {
+                return
+            }
+
+            let dispatchGroup = DispatchGroup()
+
+            dispatchGroup.enter()
+            APIService.refreshToken { _ in
+                dispatchGroup.leave()
+            }
+
+            dispatchGroup.notify(queue: .main) { [weak self] in
+                guard let strongSelf = self else { return }
+                let formatter = DateFormatter()
+                formatter.dateStyle = .medium
+                formatter.timeStyle = .medium
+                let expirationDate = Date(timeIntervalSince1970: TimeInterval(expirationTime)! / 1000) + TimeInterval(TimeZone.current.secondsFromGMT())
+
+                strongSelf.saveKeychainDataString(dataType: .tokenExpirationDate, dataString: formatter.string(from: expirationDate))
+            }
+        }
+    }
 
     func readKeychainDataString(dataType: KeychainData) -> String? {
         guard let data = KeychainHelper.shared.read(service: dataType.rawValue, account: "MovieApp") else {

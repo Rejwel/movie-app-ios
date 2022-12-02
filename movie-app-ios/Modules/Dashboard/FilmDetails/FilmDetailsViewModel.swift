@@ -12,28 +12,34 @@ class FilmDetailsViewModel: ObservableObject {
 
     let synthesizer = AVSpeechSynthesizer()
 
-    func readDescription(description: String) {
-        let utterance = AVSpeechUtterance(string: description)
+    func readDescription(title: String, date: String, description: String, genres: [Genre], runtime: String?) {
 
-        // Configure the utterance.
+        guard DefaultsHelper.getReadFilmDescription() != nil, DefaultsHelper.getReadFilmDescription() == true else {
+            return
+        }
+
+        let utterance = AVSpeechUtterance(string: """
+        Title: \(title).
+        Release Date: \(date).
+        Runtime: \(runtime != nil ? runtime! + " minutes" : "Undefined").
+        Genres: \(genres.map { $0.name }.joined(separator: ",")).
+        Description: \(description).
+        """)
+
         utterance.rate = 0.57
         utterance.pitchMultiplier = 0.8
         utterance.postUtteranceDelay = 0.2
         utterance.volume = 0.8
 
-        // Retrieve the British English voice.
         let voice = AVSpeechSynthesisVoice(language: "en-GB")
-
-        // Assign the voice to the utterance.
         utterance.voice = voice
 
-        // Create a speech synthesizer.
-
-        // Tell the synthesizer to speak the utterance.
         synthesizer.speak(utterance)
     }
 
     func addMovieToFavourite(ID: String) {
+
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
 
         APIService.addMovieToFavoritesByID(ID: ID) { _ in
 
@@ -41,6 +47,8 @@ class FilmDetailsViewModel: ObservableObject {
     }
 
     func removeFavoriteMovie(ID: String) {
+
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
 
         APIService.removeMovieFromFavoritesByID(ID: ID) { _ in
 

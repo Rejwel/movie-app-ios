@@ -35,7 +35,7 @@ struct FilmDetails: View {
                         Text(movie.runtime!)
                         Text(" | ")
                     } else {
-                        if movie.releaseDate.isEmpty && !movie.genres.isEmpty {
+                        if movie.releaseDate != "" && !movie.genres.isEmpty {
                             Text(" | ")
                         }
                     }
@@ -58,7 +58,11 @@ struct FilmDetails: View {
                             .multilineTextAlignment(.center)
                             .foregroundColor(.white)
                             .onAppear {
-                                viewModel.readDescription(description: movie.overview)
+                                viewModel.readDescription(title: movie.title,
+                                                          date: movie.releaseDate,
+                                                          description: movie.overview,
+                                                          genres: movie.genres,
+                                                          runtime: movie.runtime)
                             }
                     }.frame(height: 150)
                 }
@@ -107,6 +111,9 @@ struct FilmDetails: View {
                 .edgesIgnoringSafeArea(.top)
                 .opacity(0.7)
                 .padding(.trailing, 60)
+        }
+        .onDisappear {
+            viewModel.synthesizer.stopSpeaking(at: .immediate)
         }
     }
 }

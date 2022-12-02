@@ -10,6 +10,7 @@ import SwiftUI
 struct ProfileScreen: View {
 
     @ObservedObject private var viewModel = ProfileViewModel()
+
     @Binding var uiTabBarController: UITabBarController?
 
     var body: some View {
@@ -35,6 +36,12 @@ struct ProfileScreen: View {
                         TextInput(text: "••••••••", disabled: true)
                     }
                     .padding(.top, 32)
+
+                    Toggle("Enable reading", isOn: $viewModel.enableReading)
+                        .font(.custom(FontFamily.SFProRounded.bold, size: 24))
+                        .foregroundColor(.white)
+                        .padding(.top, 32)
+                        .padding(.horizontal, 48)
 
                     PrimaryButton(text: "Sign out", isActive: $viewModel.signoutTapped) {
                         uiTabBarController?.tabBar.removeFromSuperview()

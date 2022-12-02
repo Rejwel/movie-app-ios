@@ -10,6 +10,9 @@ import SwiftUI
 class PreferencesViewModel: ObservableObject {
 
     func getUserFavoriteMovies(completion: @escaping ([Movie]) -> Void) {
+
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
+
         APIService.getUserFavoriteMovies { res in
             switch res {
             case .success(let success):
@@ -21,6 +24,9 @@ class PreferencesViewModel: ObservableObject {
     }
 
     func removeFavoriteMovie(ID: String) {
+
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
+
         APIService.removeMovieFromFavoritesByID(ID: ID) { _ in
 
         }

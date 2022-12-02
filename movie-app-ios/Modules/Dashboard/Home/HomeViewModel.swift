@@ -11,13 +11,10 @@ class HomeViewModel: ObservableObject {
 
     @Published var user: User?
 
-    public func refreshToken() {
-        APIService.refreshToken { _ in
-
-        }
-    }
-
     public func fetchUser() {
+
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
+
         APIService.getUser { [weak self] res in
             switch res {
             case .success(let success):
@@ -30,6 +27,9 @@ class HomeViewModel: ObservableObject {
     }
 
     public func fetchMovies(completion: @escaping ([Movie]) -> Void) {
+
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
+
         APIService.getMovies(query: "Black%20Panther") { res in
             switch res {
             case .success(let success):
@@ -43,6 +43,9 @@ class HomeViewModel: ObservableObject {
 
     public func fetchMoviesByQuery(query: String,
                                    completion: @escaping ([Movie]) -> Void) {
+
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
+
         guard query.count > 0 else { return }
         let queryForRequest = query.replacingOccurrences(of: " ", with: "%20")
         APIService.getMovies(query: queryForRequest) { res in

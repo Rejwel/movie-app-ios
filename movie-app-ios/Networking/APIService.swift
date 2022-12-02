@@ -17,6 +17,8 @@ class APIService {
     public static func login(loginParameters: LoginParameters,
                              completion: @escaping (Result<AppToken, AppError>) -> Void) {
 
+        let dispatchGroup = DispatchGroup()
+
         AF.request("\(APIServiceConstants.ApiURL)/login",
                    method: .post,
                    parameters: loginParameters,
