@@ -11,6 +11,7 @@ import Introspect
 struct Navigator: View {
 
     @State var uiTabBarController: UITabBarController?
+    @EnvironmentObject var tokenHelper: TokenHelper
 
     init() {
 
@@ -18,25 +19,28 @@ struct Navigator: View {
     }
 
     var body: some View {
-        TabView {
-            HomeScreen()
-                .tabItem {
-                    Image(systemName: "house.fill")
-                    Text("Home")
-                }
-            PreferencesScreen()
-                .tabItem {
-                    Image(systemName: "heart.fill")
-                    Text("Preferences")
-                }
-            ProfileScreen(uiTabBarController: $uiTabBarController)
-                .tabItem {
-                    Image(systemName: "person")
-                    Text("Profile")
-                }
-        }
-        .introspectTabBarController { (UITabBarController) in
-            uiTabBarController = UITabBarController
+        if tokenHelper.isLoggedIn {
+            TabView {
+                HomeScreen()
+                    .tabItem {
+                        Image(systemName: "house.fill")
+                        Text("Home")
+                    }
+                PreferencesScreen()
+                    .tabItem {
+                        Image(systemName: "heart.fill")
+                        Text("Preferences")
+                    }
+                ProfileScreen()
+                    .environmentObject(tokenHelper)
+                    .tabItem {
+                        Image(systemName: "person")
+                        Text("Profile")
+                    }
+            }
+        } else {
+            LandingScreen()
+                .environmentObject(tokenHelper)
         }
     }
 }

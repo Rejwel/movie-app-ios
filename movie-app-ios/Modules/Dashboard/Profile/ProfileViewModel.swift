@@ -12,15 +12,13 @@ class ProfileViewModel: ObservableObject {
 
     var cancellables = Set<AnyCancellable>()
 
-    @Published var signoutTapped = false
     @Published var enableReading: Bool
 
     @Published var email: String = "e-mail"
     @Published var username: String = "username"
 
-    init(signoutTapped: Bool = false) {
+    init() {
 
-        self.signoutTapped = signoutTapped
         self.enableReading = DefaultsHelper.getReadFilmDescription() == nil ? false : DefaultsHelper.getReadFilmDescription()!
 
         self.$enableReading.sink { isEnabled in
@@ -32,23 +30,23 @@ class ProfileViewModel: ObservableObject {
 
     func fetchUserData() {
 
-        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
-
-        APIService.getUser { [weak self] res in
-            guard let strongSelf = self else { return }
-            switch res {
-            case .success(let success):
-                strongSelf.email = success.email ?? "e-mail"
-                strongSelf.username = success.username
-            case .failure(let err):
-                print(err)
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend {
+            APIService.getUser { [weak self] res in
+                guard let strongSelf = self else { return }
+                switch res {
+                case .success(let success):
+                    strongSelf.email = success.email ?? "e-mail"
+                    strongSelf.username = success.username
+                case .failure(let err):
+                    print(err)
+                }
             }
         }
     }
 
-    func signoutTap() {
+    func signoutTap(completion: @escaping () -> Void) {
 
-        signoutTapped = true
         KeychainHelper.shared.deleteKeychainData(dataType: .bearerToken)
+        completion()
     }
 }

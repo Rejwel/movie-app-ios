@@ -9,9 +9,8 @@ import SwiftUI
 
 struct ProfileScreen: View {
 
+    @EnvironmentObject var tokenHelper: TokenHelper
     @ObservedObject private var viewModel = ProfileViewModel()
-
-    @Binding var uiTabBarController: UITabBarController?
 
     var body: some View {
         NavigationView {
@@ -43,12 +42,18 @@ struct ProfileScreen: View {
                         .padding(.top, 32)
                         .padding(.horizontal, 48)
 
-                    PrimaryButton(text: "Sign out", isActive: $viewModel.signoutTapped) {
-                        uiTabBarController?.tabBar.isHidden = true
-                        uiTabBarController = nil
-                        viewModel.signoutTap()
-                    } destination: {
-                        LandingScreen()
+                    Button {
+                        viewModel.signoutTap {
+                            tokenHelper.isLoggedIn = false
+                        }
+                    } label: {
+                        Text("Sign out")
+                            .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                            .foregroundColor(.white)
+                            .frame(width: 327, height: 64)
+                            .buttonStyle(.automatic)
+                            .background(.blue)
+                            .cornerRadius(AppConstants.buttonCornerRadius)
                     }
                     .padding(.top, 48)
                     Spacer()

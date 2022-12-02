@@ -35,7 +35,7 @@ class APIService {
         }
     }
 
-    public static func refreshToken(completion: @escaping (Result<String, AppError>) -> Void) {
+    public static func refreshToken(completion: @escaping (Result<AppToken, AppError>) -> Void) {
 
         guard let token = KeychainHelper.shared.readKeychainDataString(dataType: .refreshToken) else { return }
 
@@ -45,15 +45,16 @@ class APIService {
 
         AF.request("\(APIServiceConstants.ApiURL)/token/refresh",
                    method: .get,
-                   headers: headers).response { response in
+                   headers: headers).responseDecodable(of: AppToken.self) { response in
 
-            guard (200..<300).contains(response.response!.statusCode) else {
+            guard let value = response.value,
+                  (200..<300).contains(response.response!.statusCode) else {
                 completion(.failure(AppError(errorCode: response.response?.statusCode ?? 400,
                                              message: "result_failure")))
                 return
             }
 
-            completion(.success("result_success"))
+            completion(.success(value))
         }
     }
 

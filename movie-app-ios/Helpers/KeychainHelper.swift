@@ -77,20 +77,20 @@ public class KeychainHelper {
     func saveAppTokenToKeychain(_ appToken: AppToken) {
 
         saveKeychainDataString(dataType: .bearerToken, dataString: appToken.accessToken)
-        saveKeychainDataString(dataType: .refreshToken, dataString: appToken.refreshToken)
-        saveKeychainDataString(dataType: .tokenExpirationTime, dataString: appToken.expirationTime)
+        saveKeychainDataString(dataType: .refreshToken, dataString: appToken.refreshToken!)
+        saveKeychainDataString(dataType: .tokenExpirationTime, dataString: appToken.expirationTime!)
 
         let formatter = DateFormatter()
         formatter.dateStyle = .medium
         formatter.timeStyle = .medium
-        let expirationDate = Date(timeIntervalSince1970: TimeInterval(appToken.expirationTime)! / 1000) + TimeInterval(TimeZone.current.secondsFromGMT())
+        let expirationDate = Date(timeIntervalSince1970: TimeInterval(appToken.expirationTime!)! / 1000) + TimeInterval(TimeZone.current.secondsFromGMT())
 
         saveKeychainDataString(dataType: .tokenExpirationDate, dataString: formatter.string(from: expirationDate))
     }
 
     private func isTokenExpired() -> Bool {
         guard let expirationDate = KeychainHelper.shared.readKeychainDataString(dataType: .tokenExpirationDate) else {
-            return true
+            return false
         }
 
         let formatter = DateFormatter()
@@ -101,13 +101,13 @@ public class KeychainHelper {
         guard let formattedDate = formatter.date(from: expirationDate) else { return true }
 
         if formattedDate < now {
-            return false
-        } else {
             return true
+        } else {
+            return false
         }
     }
 
-    func checkIfTokenExpiredAndExtend() {
+    func checkIfTokenExpiredAndExtend(completion: @escaping () -> Void) {
         if isTokenExpired() {
             guard let expirationTime = KeychainHelper.shared.readKeychainDataString(dataType: .tokenExpirationTime) else {
                 return
@@ -116,7 +116,14 @@ public class KeychainHelper {
             let dispatchGroup = DispatchGroup()
 
             dispatchGroup.enter()
-            APIService.refreshToken { _ in
+            APIService.refreshToken { [weak self] res in
+                guard let strongSelf = self else { return }
+                switch res {
+                case .success(let success):
+                    strongSelf.saveKeychainDataString(dataType: .bearerToken, dataString: success.accessToken)
+                case .failure:
+                    break
+                }
                 dispatchGroup.leave()
             }
 
@@ -128,7 +135,10 @@ public class KeychainHelper {
                 let expirationDate = Date(timeIntervalSince1970: TimeInterval(expirationTime)! / 1000) + TimeInterval(TimeZone.current.secondsFromGMT())
 
                 strongSelf.saveKeychainDataString(dataType: .tokenExpirationDate, dataString: formatter.string(from: expirationDate))
+                completion()
             }
+        } else {
+            completion()
         }
     }
 

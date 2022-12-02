@@ -8,6 +8,8 @@ import SwiftUI
 
 struct LandingScreen: View {
 
+    @EnvironmentObject var tokenHelper: TokenHelper
+
     var body: some View {
 
         NavigationView {
@@ -27,6 +29,7 @@ struct LandingScreen: View {
                         Spacer()
                         NavigationLink {
                             LoginScreen()
+                                .environmentObject(tokenHelper)
                         } label: {
                             Text("Get started")
                                 .font(.custom(FontFamily.SFProRounded.bold, size: 18))

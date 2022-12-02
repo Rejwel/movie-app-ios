@@ -10,6 +10,7 @@ import ExytePopupView
 
 struct LoginScreen: View {
 
+    @EnvironmentObject var tokenHelper: TokenHelper
     @ObservedObject private var viewModel = LoginViewModel()
     @State private var showingPopup = false
 
@@ -55,10 +56,18 @@ struct LoginScreen: View {
                     Spacer()
                     VStack {
 
-                        PrimaryButton(text: "Sign in", isActive: $viewModel.isValid) {
-                            viewModel.login()
-                        } destination: {
-                            Navigator()
+                        Button {
+                            viewModel.login {
+                                tokenHelper.isLoggedIn = true
+                            }
+                        } label: {
+                            Text("Sign in")
+                                .font(.custom(FontFamily.SFProRounded.bold, size: 18))
+                                .foregroundColor(.white)
+                                .frame(width: 327, height: 64)
+                                .buttonStyle(.automatic)
+                                .background(.blue)
+                                .cornerRadius(AppConstants.buttonCornerRadius)
                         }
                         .padding(.bottom, 16)
 

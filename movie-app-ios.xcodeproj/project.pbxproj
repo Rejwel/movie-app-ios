@@ -34,6 +34,7 @@
 		6A670E0629373C2D00894D38 /* PreferencesViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A670E0529373C2D00894D38 /* PreferencesViewModel.swift */; };
 		6A7274DF2939455A002E5172 /* DefaultsHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7274DE2939455A002E5172 /* DefaultsHelper.swift */; };
 		6A7274E1293A0EA9002E5172 /* Binding+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7274E0293A0EA9002E5172 /* Binding+Extensions.swift */; };
+		6A7D2F2B293A493C007E6B18 /* TokenHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7D2F2A293A493C007E6B18 /* TokenHelper.swift */; };
 		6AAACD40291ADD4400A4A0A6 /* AppConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6AAACD3F291ADD4400A4A0A6 /* AppConstants.swift */; };
 		6AAACD4E291C111F00A4A0A6 /* SF-Pro-Rounded-Semibold.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6AAACD45291C111F00A4A0A6 /* SF-Pro-Rounded-Semibold.otf */; };
 		6AAACD4F291C111F00A4A0A6 /* SF-Pro-Rounded-Regular.otf in Resources */ = {isa = PBXBuildFile; fileRef = 6AAACD46291C111F00A4A0A6 /* SF-Pro-Rounded-Regular.otf */; };
@@ -106,6 +107,7 @@
 		6A670E0529373C2D00894D38 /* PreferencesViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PreferencesViewModel.swift; sourceTree = "<group>"; };
 		6A7274DE2939455A002E5172 /* DefaultsHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultsHelper.swift; sourceTree = "<group>"; };
 		6A7274E0293A0EA9002E5172 /* Binding+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Binding+Extensions.swift"; sourceTree = "<group>"; };
+		6A7D2F2A293A493C007E6B18 /* TokenHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TokenHelper.swift; sourceTree = "<group>"; };
 		6AAACD3F291ADD4400A4A0A6 /* AppConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppConstants.swift; sourceTree = "<group>"; };
 		6AAACD45291C111F00A4A0A6 /* SF-Pro-Rounded-Semibold.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Semibold.otf"; sourceTree = "<group>"; };
 		6AAACD46291C111F00A4A0A6 /* SF-Pro-Rounded-Regular.otf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "SF-Pro-Rounded-Regular.otf"; sourceTree = "<group>"; };
@@ -218,6 +220,7 @@
 			children = (
 				6A07319629214D0400F8675C /* KeychainHelper.swift */,
 				6A7274DE2939455A002E5172 /* DefaultsHelper.swift */,
+				6A7D2F2A293A493C007E6B18 /* TokenHelper.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -757,6 +760,7 @@
 				6A0731942921277000F8675C /* LoginViewModel.swift in Sources */,
 				6AAACD60291C24DF00A4A0A6 /* LoginScreen.swift in Sources */,
 				6A670E0629373C2D00894D38 /* PreferencesViewModel.swift in Sources */,
+				6A7D2F2B293A493C007E6B18 /* TokenHelper.swift in Sources */,
 				6A7274E1293A0EA9002E5172 /* Binding+Extensions.swift in Sources */,
 				6AAACD58291C11D100A4A0A6 /* Fonts.swift in Sources */,
 				6A44AE35292D83EA005A25C4 /* PrimaryButton.swift in Sources */,

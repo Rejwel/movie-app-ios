@@ -39,19 +39,19 @@ class FilmDetailsViewModel: ObservableObject {
 
     func addMovieToFavourite(ID: String) {
 
-        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend {
+            APIService.addMovieToFavoritesByID(ID: ID) { _ in
 
-        APIService.addMovieToFavoritesByID(ID: ID) { _ in
-
+            }
         }
     }
 
     func removeFavoriteMovie(ID: String) {
 
-        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend {
+            APIService.removeMovieFromFavoritesByID(ID: ID) { _ in
 
-        APIService.removeMovieFromFavoritesByID(ID: ID) { _ in
-
+            }
         }
     }
 }

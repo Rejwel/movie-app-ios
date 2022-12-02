@@ -11,24 +11,24 @@ class PreferencesViewModel: ObservableObject {
 
     func getUserFavoriteMovies(completion: @escaping ([Movie]) -> Void) {
 
-        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
-
-        APIService.getUserFavoriteMovies { res in
-            switch res {
-            case .success(let success):
-                completion(success)
-            case .failure:
-                break
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend {
+            APIService.getUserFavoriteMovies { res in
+                switch res {
+                case .success(let success):
+                    completion(success)
+                case .failure:
+                    break
+                }
             }
         }
     }
 
     func removeFavoriteMovie(ID: String) {
 
-        KeychainHelper.shared.checkIfTokenExpiredAndExtend()
+        KeychainHelper.shared.checkIfTokenExpiredAndExtend {
+            APIService.removeMovieFromFavoritesByID(ID: ID) { _ in
 
-        APIService.removeMovieFromFavoritesByID(ID: ID) { _ in
-
+            }
         }
     }
 }

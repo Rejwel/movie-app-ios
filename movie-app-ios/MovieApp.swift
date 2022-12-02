@@ -14,11 +14,8 @@ struct MovieApp: App {
 
     var body: some Scene {
         WindowGroup {
-            if tokenSaved {
-                Navigator()
-            } else {
-                LandingScreen()
-            }
+            Navigator()
+                .environmentObject(TokenHelper())
         }
     }
 }
