@@ -31,8 +31,8 @@ struct ProfileScreen: View {
                         .padding(.top, 8)
 
                     VStack {
-                        TextInput(text: "e-mail", disabled: true)
-                        TextInput(text: "username", disabled: true)
+                        TextInput(text: $viewModel.username.wrappedValue, disabled: true)
+                        TextInput(text: $viewModel.email.wrappedValue, disabled: true)
                         TextInput(text: "••••••••", disabled: true)
                     }
                     .padding(.top, 32)
@@ -44,7 +44,8 @@ struct ProfileScreen: View {
                         .padding(.horizontal, 48)
 
                     PrimaryButton(text: "Sign out", isActive: $viewModel.signoutTapped) {
-                        uiTabBarController?.tabBar.removeFromSuperview()
+                        uiTabBarController?.tabBar.isHidden = true
+                        uiTabBarController = nil
                         viewModel.signoutTap()
                     } destination: {
                         LandingScreen()

@@ -10,9 +10,15 @@ import SwiftUI
 @main
 struct MovieApp: App {
 
+    private var tokenSaved: Bool = KeychainHelper.shared.readKeychainDataString(dataType: .bearerToken) != nil
+
     var body: some Scene {
         WindowGroup {
-            Navigator()
+            if tokenSaved {
+                Navigator()
+            } else {
+                LandingScreen()
+            }
         }
     }
 }

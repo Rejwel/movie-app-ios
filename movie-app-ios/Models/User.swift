@@ -9,6 +9,7 @@ import SwiftUI
 
 struct User: Codable {
     let id: String
+    let email: String?
     let username: String
     let favoriteGenres: [Genre?]
     let favoriteMovies: [Movie?]
