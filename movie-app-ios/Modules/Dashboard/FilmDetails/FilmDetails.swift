@@ -10,6 +10,8 @@ import Kingfisher
 
 struct FilmDetails: View {
 
+    @Environment(\.horizontalSizeClass) var sizeClass
+
     @ObservedObject private var viewModel = FilmDetailsViewModel()
 
     let movie: Movie
@@ -18,6 +20,30 @@ struct FilmDetails: View {
 
     var body: some View {
         ZStack {
+            Asset.Colors.btnDark.swiftUIColor
+                .ignoresSafeArea()
+            VStack {
+
+                if sizeClass == .compact {
+                    image
+                        .resizable()
+                        .scaledToFit()
+                        .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear, .clear]),
+                                             startPoint: .top, endPoint: .bottom))
+                        .opacity(0.7)
+                } else {
+                    image
+                        .resizable()
+                        .scaledToFill()
+                        .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear, .clear]),
+                                             startPoint: .top, endPoint: .bottom))
+                        .opacity(0.7)
+                }
+
+                Spacer()
+            }
+            .edgesIgnoringSafeArea(.all)
+
             VStack {
 
                 Spacer()
@@ -98,19 +124,6 @@ struct FilmDetails: View {
                 }
                 .padding(.bottom, 30)
             }
-        }
-        .background {
-            Asset.Colors.btnDark.swiftUIColor
-                .ignoresSafeArea()
-
-            image
-                .resizable()
-                .scaledToFill()
-                .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear, .clear]),
-                                     startPoint: .top, endPoint: .bottom))
-                .edgesIgnoringSafeArea(.top)
-                .opacity(0.7)
-                .padding(.trailing, 60)
         }
         .onDisappear {
             viewModel.synthesizer.stopSpeaking(at: .immediate)

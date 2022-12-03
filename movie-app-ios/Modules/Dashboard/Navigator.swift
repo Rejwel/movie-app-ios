@@ -39,6 +39,7 @@ struct Navigator: View {
                     }
             }
             .transition(.opacity)
+            .navigationViewStyle(.stack)
         } else {
             LandingScreen()
                 .environmentObject(tokenHelper)

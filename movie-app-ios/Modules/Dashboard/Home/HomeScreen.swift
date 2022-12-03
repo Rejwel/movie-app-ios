@@ -131,8 +131,8 @@ struct FilmView: View {
                         } label: {
                             image
                                 .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(width: size.width)
+                                .scaledToFill()
+                                .frame(width: size.width, height: size.height)
                                 .opacity(film.id == films[currentIndex].id ? 1 : 0.3)
                                 .cornerRadius(AppConstants.buttonCornerRadius)
                                 .padding(.vertical, filmPadding)
@@ -144,7 +144,8 @@ struct FilmView: View {
                 .padding(.bottom, 90)
                 Spacer()
             }
-            .frame(maxHeight: .infinity, alignment: .top)
+            .frame(maxHeight: .infinity, alignment: .bottom)
+            .padding(.bottom, 30)
             .onAppear {
                 if films.isEmpty {
                     viewModel.fetchMovies { movies in

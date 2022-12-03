@@ -14,15 +14,20 @@ struct LandingScreen: View {
 
         NavigationView {
             ZStack {
+                Image(uiImage: Asset.Assets.landingImage.image)
+                    .resizable()
+                    .edgesIgnoringSafeArea(.all)
+                    .scaledToFill()
+                    .overlay(Color.black.opacity(0.4))
                 VStack {
                     Text("Welcome to movie app")
+                        .frame(width: 250)
                         .multilineTextAlignment(.center)
                         .font(.custom(FontFamily.SFProRounded.bold, size: 38))
                         .foregroundColor(.white)
                         .padding()
                         .background(Asset.Colors.btnDark.swiftUIColor)
                         .cornerRadius(25)
-                        .padding()
                         .padding(.top, 120)
                     Spacer()
                     VStack {
@@ -38,24 +43,11 @@ struct LandingScreen: View {
                         }
                         .background(Asset.Colors.btnDark.swiftUIColor)
                         .cornerRadius(AppConstants.buttonCornerRadius)
+                        .padding(.bottom, 32)
                     }
                 }
             }
-            .background {
-                Image(uiImage: Asset.Assets.landingImage.image)
-                    .resizable()
-                    .scaledToFill()
-                    .edgesIgnoringSafeArea(.all)
-                    .overlay(Color.black.opacity(0.4))
-            }
         }
-        .navigationBarTitle("")
-        .navigationBarHidden(true)
-    }
-}
-
-struct LandingScreen_Previews: PreviewProvider {
-    static var previews: some View {
-        LandingScreen()
+        .navigationViewStyle(.stack)
     }
 }
