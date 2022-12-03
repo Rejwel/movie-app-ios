@@ -13,12 +13,13 @@ struct LandingScreen: View {
     var body: some View {
 
         NavigationView {
-            ZStack {
+            GeometryReader { geometry in
                 Image(uiImage: Asset.Assets.landingImage.image)
                     .resizable()
+                    .aspectRatio(contentMode: .fill)
                     .edgesIgnoringSafeArea(.all)
-                    .scaledToFill()
-                    .overlay(Color.black.opacity(0.4))
+                    .frame(width: geometry.size.width)
+            }.overlay(
                 VStack {
                     Text("Welcome to movie app")
                         .frame(width: 250)
@@ -46,7 +47,7 @@ struct LandingScreen: View {
                         .padding(.bottom, 32)
                     }
                 }
-            }
+            )
         }
         .navigationViewStyle(.stack)
     }

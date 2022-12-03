@@ -19,112 +19,117 @@ struct FilmDetails: View {
     @State var isFavorite: Bool
 
     var body: some View {
-        ZStack {
-            Asset.Colors.btnDark.swiftUIColor
-                .ignoresSafeArea()
-            VStack {
 
-                if sizeClass == .compact {
-                    image
-                        .resizable()
-                        .scaledToFit()
-                        .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear, .clear]),
-                                             startPoint: .top, endPoint: .bottom))
-                        .opacity(0.7)
-                } else {
-                    image
-                        .resizable()
-                        .scaledToFill()
-                        .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear, .clear]),
-                                             startPoint: .top, endPoint: .bottom))
-                        .opacity(0.7)
-                }
+        GeometryReader { _ in
+            ZStack {
+                Asset.Colors.btnDark.swiftUIColor
+                    .ignoresSafeArea()
+                VStack {
 
-                Spacer()
-            }
-            .edgesIgnoringSafeArea(.all)
-
-            VStack {
-
-                Spacer()
-
-                Text(movie.title)
-                    .font(.custom(FontFamily.SFProRounded.bold, size: 30))
-                    .foregroundColor(.white)
-                    .multilineTextAlignment(.center)
-                    .padding(.bottom, 20)
-
-                HStack(alignment: .center) {
-                    Text(movie.releaseDate.prefix(4))
-                    if movie.runtime != nil {
-                        Text(" | ")
-                        Text(movie.runtime!)
-                        Text(" | ")
+                    if sizeClass == .compact {
+                        image
+                            .resizable()
+                            .scaledToFit()
+                            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear, .clear]),
+                                                 startPoint: .top, endPoint: .bottom))
+                            .opacity(0.7)
                     } else {
-                        if movie.releaseDate != "" && !movie.genres.isEmpty {
-                            Text(" | ")
-                        }
+                        image
+                            .resizable()
+                            .scaledToFill()
+                            .mask(LinearGradient(gradient: Gradient(colors: [.black, .black, .clear, .clear]),
+                                                 startPoint: .top, endPoint: .bottom))
+                            .opacity(0.7)
                     }
-                    Text(movie.genres.map { $0.name }.joined(separator: ", "))
+
+                    Spacer()
                 }
-                .font(.custom(FontFamily.SFProRounded.regular, size: 17))
-                .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
-                .padding(.bottom, 20)
+                .edgesIgnoringSafeArea(.all)
+            }
+        }.overlay(
+            VStack {
 
                 VStack {
-                    Text("Storyline")
-                        .font(.custom(FontFamily.SFProRounded.bold, size: 24))
-                        .foregroundColor(.white)
-                        .padding(.bottom, 10)
 
-                    ScrollView {
-                        Text(movie.overview)
-                            .font(.custom(FontFamily.SFProRounded.regular, size: 20))
-                            .padding(.horizontal, 20)
-                            .multilineTextAlignment(.center)
-                            .foregroundColor(.white)
-                            .onAppear {
-                                viewModel.readDescription(title: movie.title,
-                                                          date: movie.releaseDate,
-                                                          description: movie.overview,
-                                                          genres: movie.genres,
-                                                          runtime: movie.runtime)
-                            }
-                    }.frame(height: 150)
-                }
-                .padding(.bottom, 40)
-
-                HStack {
                     Spacer()
-                    Button {
-                        print("clicked")
-                    } label: {
-                        Image(systemName: "bell")
-                            .font(.system(size: 32, weight: .regular))
-                            .tint(.white)
-                    }
-                    .padding(.horizontal, 20)
-                    Button {
-                        isFavorite = !isFavorite
+                    Text(movie.title)
+                        .font(.custom(FontFamily.SFProRounded.bold, size: 30))
+                        .foregroundColor(.white)
+                        .multilineTextAlignment(.center)
+                        .padding(.bottom, 20)
 
-                        if isFavorite {
-                            viewModel.addMovieToFavourite(ID: String(movie.id))
+                    HStack(alignment: .center) {
+                        Text(movie.releaseDate.prefix(4))
+                        if movie.runtime != nil {
+                            Text(" | ")
+                            Text(movie.runtime!)
+                            Text(" | ")
                         } else {
-                            viewModel.removeFavoriteMovie(ID: String(movie.id))
+                            if movie.releaseDate != "" && !movie.genres.isEmpty {
+                                Text(" | ")
+                            }
                         }
-                    } label: {
-                        withAnimation {
-                            Image(systemName: isFavorite ? "heart.fill" : "heart")
+                        Text(movie.genres.map { $0.name }.joined(separator: ", "))
+                    }
+                    .font(.custom(FontFamily.SFProRounded.regular, size: 17))
+                    .foregroundColor(Asset.Colors.btnDarkText.swiftUIColor)
+                    .padding(.bottom, 20)
+
+                    VStack {
+                        Text("Storyline")
+                            .font(.custom(FontFamily.SFProRounded.bold, size: 24))
+                            .foregroundColor(.white)
+                            .padding(.bottom, 10)
+
+                        ScrollView {
+                            Text(movie.overview)
+                                .font(.custom(FontFamily.SFProRounded.regular, size: 20))
+                                .padding(.horizontal, 20)
+                                .multilineTextAlignment(.center)
+                                .foregroundColor(.white)
+                                .onAppear {
+                                    viewModel.readDescription(title: movie.title,
+                                                              date: movie.releaseDate,
+                                                              description: movie.overview,
+                                                              genres: movie.genres,
+                                                              runtime: movie.runtime)
+                                }
+                        }.frame(height: 150)
+                    }
+                    .padding(.bottom, 40)
+
+                    HStack {
+                        Spacer()
+                        Button {
+                            print("clicked")
+                        } label: {
+                            Image(systemName: "bell")
                                 .font(.system(size: 32, weight: .regular))
                                 .tint(.white)
                         }
+                        .padding(.horizontal, 20)
+                        Button {
+                            isFavorite = !isFavorite
+
+                            if isFavorite {
+                                viewModel.addMovieToFavourite(ID: String(movie.id))
+                            } else {
+                                viewModel.removeFavoriteMovie(ID: String(movie.id))
+                            }
+                        } label: {
+                            withAnimation {
+                                Image(systemName: isFavorite ? "heart.fill" : "heart")
+                                    .font(.system(size: 32, weight: .regular))
+                                    .tint(.white)
+                            }
+                        }
+                        .padding(.horizontal, 20)
+                        Spacer()
                     }
-                    .padding(.horizontal, 20)
-                    Spacer()
+                    .padding(.bottom, 30)
                 }
-                .padding(.bottom, 30)
             }
-        }
+        )
         .onDisappear {
             viewModel.synthesizer.stopSpeaking(at: .immediate)
         }
