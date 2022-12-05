@@ -43,7 +43,7 @@ struct HomeScreen: View {
                         Text("Welcome")
                             .font(.custom(FontFamily.SFProRounded.bold, size: 24))
                             .foregroundColor(.white)
-                        Text("username")
+                        Text($viewModel.user.wrappedValue?.username ?? "")
                             .font(.custom(FontFamily.SFProRounded.bold, size: 24))
                             .foregroundColor(.blue)
                     }
